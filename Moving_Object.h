@@ -9,10 +9,6 @@
 #include "Point.h"
 
 class Moving_Object {
-private:
-    Point location;
-    Point destionation;
-    int speed;
 public:
     Moving_Object();
     Moving_Object(const Point& location, int speed);
@@ -27,6 +23,11 @@ public:
     void setSpeed(int speed);
 
     void start_moving();
+
+private:
+    Point location;
+    Point destionation;
+    int speed;
 };
 
 

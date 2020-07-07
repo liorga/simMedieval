@@ -9,14 +9,15 @@
 #include "Agent.h"
 
 class Knight : public Agent{
-private:
-
 public:
     Knight(const string& name,const Point& location, int speed = KNIGHT_SPEED, int health = KNIGHT_LIFE);
     virtual ~Knight();
 
     void update() override;
     Point& getLocation() override;
+
+private:
+
 };
 
 

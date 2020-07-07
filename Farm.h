@@ -9,8 +9,7 @@
 #include "Structure.h"
 
 class Farm : public Structure{
-private:
-    uint rate;
+
 public:
     Farm(const string& name, const Point& location, uint rate);
     virtual ~Farm();
@@ -20,7 +19,8 @@ public:
 
     void update() override;
 
-
+private:
+    uint rate;
 };
 
 

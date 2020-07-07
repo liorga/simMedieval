@@ -9,12 +9,14 @@
 #include "Structure.h"
 
 class Castle : public Structure{
-private:
 
 public:
     Castle(const string& name, const Point& location);
     virtual ~Castle();
     void update() override;
+
+private:
+
 
 };
 

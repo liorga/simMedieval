@@ -8,15 +8,15 @@
 #include <iomanip>
 using namespace std;
 class Point {
-private:
-    double x;
-    double y;
 public:
     Point();
     Point(double x, double y);
     void print() const;
     bool operator==(const Point& rhs);
 
+private:
+    double x;
+    double y;
 };
 
 

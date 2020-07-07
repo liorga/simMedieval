@@ -11,8 +11,7 @@ using namespace std;
 typedef unsigned int uint;
 
 class SimObject {
-protected:
-    string name;
+
 public:
     SimObject();
     SimObject(const string& name);
@@ -24,6 +23,8 @@ public:
     virtual void update() = 0;
     void broadcest_current_state();
 
+protected:
+    string name;
 };
 
 

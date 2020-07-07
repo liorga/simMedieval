@@ -14,6 +14,9 @@
 #include "Farm.h"
 #include "Castle.h"
 #include "AgentFactory.h"
+
+typedef unsigned int uint;
+
 class Model{
 public:
     enum COMMANDS{STATUS,CREATE,COURSE,POSITION,DESTINATION,ATTACK,STOPPED};//commands from the controller to the model
@@ -25,7 +28,7 @@ public:
 
     static Model &getInstance();
     void addMapObjects(const std::vector<std::shared_ptr<SimObject>>&);
-    unsigned int getTime() const;
+    uint getTime() const;
     std::shared_ptr<SimObject> findMapObjectByName(std::string) const;//return a pointer to map object or null if this object dose not exist
     Castle& getClosestCastle(const Point&) const;
     bool existInTheMap(std::string) const;//receive a of an object and return true if it is in the map
@@ -33,13 +36,14 @@ public:
     View& getView();
     void _go();//go over the commends queue and apply all the commends4
     void status() const;
+
 private:
     std::map<std::string,std::string> nameANDtype;//name and type of all the object in the map -> type{"Warehouse","Truck","Chopper","Police"}
     std::unordered_multimap<std::string,std::shared_ptr<SimObject>> mapObjects;//the string is the type of the object
     std::queue<std::pair<Model::COMMANDS,std::vector<std::string>>> commends;//commends from the controller, run them when the controller call go.
     //every item in the queue contain the type of the commend and the commend arguments if exist
     View view;
-    unsigned int time=0;
+    uint time = 0;
     AgentFactory& factory;
     Model();
     bool SuccessfulAttack(const Point&) const;//return true if there is no police in 10km radius from the point

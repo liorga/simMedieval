@@ -11,9 +11,6 @@
 
 
 class Structure : public SimObject{
-private:
-    Point location;
-    uint inventory;
 public:
     Structure(const string& name, const Point& location);
     virtual ~Structure();
@@ -28,6 +25,9 @@ public:
     void deposit();
     uint withdrew();
 
+private:
+    Point location;
+    uint inventory;
 };
 
 
