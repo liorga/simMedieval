@@ -40,12 +40,12 @@ private:
     //every item in the queue contain the type of the commend and the commend arguments if exist
     View view;
     unsigned int time=0;
-    VehicleFactory& factory;
+    AgentFactory& factory;
     Model();
     bool SuccessfulAttack(const Point&) const;//return true if there is no police in 10km radius from the point
-    void addToMap(const std::shared_ptr<MapObject>&);
-    std::string getMapObjectType(const std::shared_ptr<MapObject>&) const;//return the string of that map objects
-    std::vector<std::shared_ptr<MapObject>> copyAllMapObject();
+    void addToMap(const std::shared_ptr<SimObject>&);
+    std::string getMapObjectType(const std::shared_ptr<SimObject>&) const;//return the string of that map objects
+    std::vector<std::shared_ptr<SimObject>> copyAllMapObject();
     void updateView();
     void create(std::vector<std::string>&);//the vector look like this [name of vehicle,type of vehicle,point or warehose to start from]
     void course(const std::vector<std::string>&);//if it is a TrooperState -> arg.size()=3 (curse,name,angle) and it is a Chopper -> arg.size()=4 (curse,name,angle,speed)
