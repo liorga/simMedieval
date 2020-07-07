@@ -15,10 +15,10 @@ public:
 
     Point& getLocation() override;
     void update() override;
-    void start_working();
+    void start_working(string farm_src,string castle_dest);
 
 private:
-
+    uint beg; // used to know how much is the peasant invantory(maximum 5 on his back).
 };
 
 #endif //EX3_SIMMEDIEVAL_PEASANT_H

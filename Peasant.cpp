@@ -6,7 +6,9 @@
 
 
 Peasant::Peasant(const string& name,const Point& location  ,int speed, int health) : Agent(location, speed, name,
-                                                                                           health) {}
+                                                                                           health) {
+    beg = 0; // peasant start with an empty beg
+}
 
 Peasant::~Peasant() {
 
@@ -21,7 +23,7 @@ Point& Peasant::getLocation() {
     return p;
 }
 
-void Peasant::start_working() {
+void Peasant::start_working(string farm_src, string castle_dest) {
 
 }
 
