@@ -9,7 +9,8 @@ Model::~Model() {
 }
 
 Model &Model::getInstance() {
-    return <#initializer#>;
+    Model m;
+    return m;
 }
 
 void Model::addMapObjects(const vector<std::shared_ptr<SimObject>> &) {
@@ -25,7 +26,8 @@ std::shared_ptr<SimObject> Model::findMapObjectByName(std::string) const {
 }
 
 Castle &Model::getClosestCastle(const Point &) const {
-    return <#initializer#>;
+    Castle m;
+    return m;
 }
 
 bool Model::existInTheMap(std::string) const {
@@ -37,7 +39,8 @@ void Model::addCommand(Model::COMMANDS, const vector<std::string> &arg) {
 }
 
 View &Model::getView() {
-    return <#initializer#>;
+    View v;
+    return v;
 }
 
 void Model::_go() {

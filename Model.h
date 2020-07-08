@@ -50,6 +50,8 @@ private:
     void addToMap(const std::shared_ptr<SimObject>&);
     std::string getMapObjectType(const std::shared_ptr<SimObject>&) const;//return the string of that map object's name
     std::vector<std::shared_ptr<SimObject>> copyAllMapObject();
+
+
     void updateView();
     void create(std::vector<std::string>&);//the vector look like this [name of vehicle,type of vehicle,point or warehose to start from]
     void course(const std::vector<std::string>&);//if it is a TrooperState -> arg.size()=3 (curse,name,angle) and it is a Chopper -> arg.size()=4 (curse,name,angle,speed)

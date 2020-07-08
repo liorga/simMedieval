@@ -5,12 +5,8 @@
 #include "Knight.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    Agent* ap = new Peasant("eviya");
-    Agent* at = new Thug(12,"lior");
-    Agent* ak = new Knight("sir mixAlot",Point(1.2,2.3));
-    cout << ap->getName() << endl;
-    cout << at->getName() << endl;
-    cout << ak->getName() << endl;
+    std::string num("(4.5,3.5");
+    cout << "X value is:    " <<Point::parseX(num)<< endl;
+    cout << "Y value is:    " <<Point::parseY(num)<< endl;
     return 0;
 }

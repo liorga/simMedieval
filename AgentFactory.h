@@ -16,6 +16,7 @@ public:
     static AgentFactory& getInstance();
     std::shared_ptr<Agent> createAgent(std::vector<std::string>&);
 private:
+    static AgentFactory instance;
     AgentFactory();
     ~AgentFactory();
 };

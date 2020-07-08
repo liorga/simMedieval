@@ -13,6 +13,8 @@ public:
     Point(double x, double y);
     void print() const;
     bool operator==(const Point& rhs);
+    static double parseX( const std::string& );
+    static double parseY( const std::string&);
 
 private:
     double x;
