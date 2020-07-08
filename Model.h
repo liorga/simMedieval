@@ -40,7 +40,7 @@ public:
 private:
     std::map<std::string,std::string> nameANDtype;//name and type of all the object in the map -> type{"Warehouse","Truck","Chopper","Police"}
     std::unordered_multimap<std::string,std::shared_ptr<SimObject>> mapObjects;//the string is the type of the object
-    std::queue<std::pair<Model::COMMANDS,std::vector<std::string>>> commends;//commends from the controller, run them when the controller call go.
+    std::queue<std::pair<Model::COMMANDS,std::vector<std::string>>> commands;//commands from the controller, run them when the controller call go.
     //every item in the queue contain the type of the commend and the commend arguments if exist
     View view;
     uint time = 0;
@@ -48,7 +48,7 @@ private:
     Model();
     bool SuccessfulAttack(const Point&) const;//return true if there is no police in 10km radius from the point
     void addToMap(const std::shared_ptr<SimObject>&);
-    std::string getMapObjectType(const std::shared_ptr<SimObject>&) const;//return the string of that map objects
+    std::string getMapObjectType(const std::shared_ptr<SimObject>&) const;//return the string of that map object's name
     std::vector<std::shared_ptr<SimObject>> copyAllMapObject();
     void updateView();
     void create(std::vector<std::string>&);//the vector look like this [name of vehicle,type of vehicle,point or warehose to start from]
