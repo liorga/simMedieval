@@ -13,7 +13,7 @@ void View::subset()//get only the object in the window to map_objects
 {
     //max point = int(origin + size* scale -scale)
     int plusToOrigin=(map_scale*window_size) - map_scale;//the number to add origin x and y
-    Point maxPoint(map_origin.getXint()+plusToOrigin,map_origin.getYint()+plusToOrigin);
+    Point maxPoint(map_origin.getX()+plusToOrigin,map_origin.getY()+plusToOrigin);
     for(auto it:all_Objects)
     {
         if(it->getLocation()>=map_origin && it->getLocation()<=maxPoint)
@@ -24,7 +24,7 @@ void View::fixMapObjects()//fix the coordinates in map objects
 {
     int scale=map_scale;
     for_each(map_objects.begin(),map_objects.end(),[&scale](const std::shared_ptr<SimObject>& a){
-        auto pair=a->getLocation().getInt();
+        auto pair=a->getLocation();
         pair.first+=(pair.first <0)?((-1)*pair.first)%scale:-(pair.first%scale);
         pair.second+=(pair.second <0)?((-1)*pair.second)%scale:-(pair.second%scale);
         a->setLocation(Point(pair.first,pair.second));
@@ -60,10 +60,14 @@ void View::_show(std::ostream& out)//show the map in the ostream
     subset();
     fixMapObjects();
     sort(map_objects.begin(),map_objects.end(),[](const std::shared_ptr<SimObject>& a,const std::shared_ptr<SimObject>& b){
-        return a->getLocation().getXint()<b->getLocation().getXint();
+        return a->getLocation().getX()<b->getLocation().getX();
     });
-    stable_sort(map_objects.begin(),map_objects.end(),[](const std::shared_ptr<SimObject>& a,const std::shared_ptr<SimObject>& b){ return a->getLocation().getYint()>b->getLocation().getYint();});
-    auto end=unique(map_objects.begin(),map_objects.end(),[](const std::shared_ptr<SimObject>& a,const std::shared_ptr<SimObject>& b){return a->getLocation().getXint()==b->getLocation().getXint() && a->getLocation().getYint()==b->getLocation().getYint();});
+    stable_sort(map_objects.begin(),map_objects.end(),[](const std::shared_ptr<SimObject>& a,const std::shared_ptr<SimObject>& b){
+        return a->getLocation().getY()>b->getLocation().getY();
+    });
+    auto end=unique(map_objects.begin(),map_objects.end(),[](const std::shared_ptr<SimObject>& a,const std::shared_ptr<SimObject>& b){
+        return a->getLocation().getX()==b->getLocation().getX() && a->getLocation().getY()==b->getLocation().getYint();
+    });
     map_objects.resize(distance(map_objects.begin(),end));
     auto it=map_objects.begin();
     int maxY=map_origin.getY()+(map_scale*window_size) - map_scale,maxX=map_origin.getX()+(map_scale*window_size) - map_scale;

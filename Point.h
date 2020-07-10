@@ -18,6 +18,14 @@ public:
 
     double getX() const;
 
+    bool operator<(const Point &rhs) const;
+
+    bool operator>(const Point &rhs) const;
+
+    bool operator<=(const Point &rhs) const;
+
+    bool operator>=(const Point &rhs) const;
+
     void setX(double x);
 
     double getY() const;

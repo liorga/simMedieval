@@ -47,3 +47,23 @@ double Point::getY() const {
 void Point::setY(double y) {
     Point::y = y;
 }
+
+bool Point::operator<(const Point &rhs) const {
+    if (x < rhs.x)
+        return true;
+    if (rhs.x < x)
+        return false;
+    return y < rhs.y;
+}
+
+bool Point::operator>(const Point &rhs) const {
+    return rhs < *this;
+}
+
+bool Point::operator<=(const Point &rhs) const {
+    return !(rhs < *this);
+}
+
+bool Point::operator>=(const Point &rhs) const {
+    return !(*this < rhs);
+}
