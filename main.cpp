@@ -3,17 +3,14 @@
 #include "Peasant.h"
 #include "Thug.h"
 #include "Knight.h"
-#include "InputHandler.h"
 
-int main(int argc,char* argv[]) {
-    vector<shared_ptr<Structure>>& c = InputHandler::handle(argv[2]);
-    for(auto& x : c ){
-        cout << x->getName() << " " << x->getInventory() << endl;
-    }
-
-    vector<shared_ptr<Structure>>& f = InputHandler::handle(argv[1]);
-    for(auto& x : f ){
-        cout << x->getName() << " " << x->getInventory() << endl;
-    }
+int main() {
+    std::cout << "Hello, World!" << std::endl;
+    Agent* ap = new Peasant("eviya");
+    Agent* at = new Thug(12,"lior");
+    Agent* ak = new Knight("sir mixAlot",Point(1.2,2.3));
+    cout << ap->getName() << endl;
+    cout << at->getName() << endl;
+    cout << ak->getName() << endl;
     return 0;
 }
