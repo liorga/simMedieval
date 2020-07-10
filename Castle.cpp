@@ -4,7 +4,7 @@
 
 #include "Castle.h"
 
-Castle::Castle(const string& name, const Point& location) : Structure(name, location) {
+Castle::Castle(const string& name, const Point& location,uint inventory) : Structure(name, location,inventory) {
 
 }
 

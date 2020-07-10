@@ -7,7 +7,7 @@
 
 Peasant::Peasant(const string& name,const Point& location  ,int speed, int health) : Agent(location, speed, name,
                                                                                            health) {
-    beg = 0; // peasant start with an empty beg
+    beg = ZERO; // peasant start with an empty beg
 }
 
 Peasant::~Peasant() {
@@ -25,5 +25,20 @@ Point& Peasant::getLocation() {
 
 void Peasant::start_working(string farm_src, string castle_dest) {
 
+}
+
+void Peasant::got_attacked() {
+    int h = this->getHealth();
+    h--;
+    this->setHealth(h);
+    setBeg(ZERO);
+}
+
+uint Peasant::getBeg() const {
+    return beg;
+}
+
+void Peasant::setBeg(uint beg) {
+    Peasant::beg = beg;
 }
 

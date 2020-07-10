@@ -13,10 +13,18 @@ public:
     Point(double x, double y);
     void print() const;
     bool operator==(const Point& rhs);
+    static double parseX(const string& arg);
+    static double parseY(const string& arg);
+    double getX() const;
+    void setX(double x);
+    double getY() const;
+    void setY(double y);
 
 private:
     double x;
     double y;
+
+
 };
 
 

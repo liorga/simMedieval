@@ -18,7 +18,6 @@ public:
     virtual ~SimObject();
 
     const string& getName() const;
-
     virtual Point& getLocation() = 0;
     virtual void update() = 0;
     void broadcest_current_state();

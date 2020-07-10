@@ -12,7 +12,7 @@
 
 class Structure : public SimObject{
 public:
-    Structure(const string& name, const Point& location);
+    Structure(const string& name, const Point& location,uint inventory);
     virtual ~Structure();
 
 

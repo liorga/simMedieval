@@ -4,7 +4,7 @@
 
 #include "Structure.h"
 
-Structure::Structure(const string& name, const Point& location) : SimObject(name), location(location) {}
+Structure::Structure(const string& name, const Point& location ,  uint inventory) : SimObject(name), location(location),inventory(inventory) {}
 
 Structure::~Structure() {
 
