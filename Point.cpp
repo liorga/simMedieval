@@ -13,7 +13,7 @@ Point::Point(double x, double y) : x(x) , y(y) {
 }
 
 void Point::print() const {
-    std::cout << setprecision(2) << "(" << x << ", " << y << ")";
+    std::cout << setprecision(2) << "(" << x << ", " << y << ")" << " ";
 }
 
 bool Point::operator==(const Point &rhs) {

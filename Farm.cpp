@@ -4,7 +4,7 @@
 
 #include "Farm.h"
 
-Farm::Farm(const string& name, const Point& location, uint rate) : Structure(name, location), rate(rate) {}
+Farm::Farm(const string& name, const Point& location,uint inventory, uint rate) : Structure(name, location,inventory), rate(rate) {}
 
 Farm::~Farm() {
 

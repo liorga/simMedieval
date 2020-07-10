@@ -16,7 +16,7 @@ public:
     static double parseX( const std::string& );
     static double parseY( const std::string&);
 
-    double getX() const;
+
 
     bool operator<(const Point &rhs) const;
 
@@ -25,7 +25,7 @@ public:
     bool operator<=(const Point &rhs) const;
 
     bool operator>=(const Point &rhs) const;
-
+    double getX() const;
     void setX(double x);
 
     double getY() const;

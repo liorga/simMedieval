@@ -11,7 +11,7 @@
 class Farm : public Structure{
 
 public:
-    Farm(const string& name, const Point& location, uint rate);
+    Farm(const string& name, const Point& location,uint inventory, uint rate);
     virtual ~Farm();
 
     uint getRate() const;

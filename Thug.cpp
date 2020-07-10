@@ -21,5 +21,7 @@ Point& Thug::getLocation() {
 }
 
 void Thug::attack() {
-
+    int h = this->getHealth();
+    h--;
+    this->setHealth(h);
 }

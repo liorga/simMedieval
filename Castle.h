@@ -11,7 +11,7 @@
 class Castle : public Structure{
 
 public:
-    Castle(const string& name, const Point& location);
+    Castle(const string& name, const Point& location,uint inventory);
     virtual ~Castle();
     void update() override;
 
