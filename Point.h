@@ -16,6 +16,14 @@ public:
     static double parseX( const std::string& );
     static double parseY( const std::string&);
 
+    double getX() const;
+
+    void setX(double x);
+
+    double getY() const;
+
+    void setY(double y);
+
 private:
     double x;
     double y;

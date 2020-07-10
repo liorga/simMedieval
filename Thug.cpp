@@ -5,7 +5,7 @@
 #include "Thug.h"
 
 
-Thug::Thug(const string& name,const Point& location, int health) : Agent(location, speed, name, health) {}
+Thug::Thug(const string& name,const Point& location,int speed, int health) : Agent(location, speed, name, health) {}
 
 Thug::~Thug() {
 

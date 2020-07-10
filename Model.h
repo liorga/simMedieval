@@ -34,33 +34,33 @@ public:
     bool existInTheMap(std::string) const;//receive a of an object and return true if it is in the map
     void addCommand(COMMANDS,const std::vector<std::string>& arg);//add command to the queue, the arguments are already cheacked and confirmed
     View& getView();
-    void _go();//go over the commends queue and apply all the commends4
+    void _go();//go over the commands queue and apply all the commends4
     void status() const;
 
 private:
-    std::map<std::string,std::string> nameANDtype;//name and type of all the object in the map -> type{"Warehouse","Truck","Chopper","Police"}
+    std::map<std::string,std::string> nameANDtype;//name and type of all the object in the map -> types{"Castle","Farm","Peasant","Thug","Knight"}
     std::unordered_multimap<std::string,std::shared_ptr<SimObject>> mapObjects;//the string is the type of the object
     std::queue<std::pair<Model::COMMANDS,std::vector<std::string>>> commands;//commands from the controller, run them when the controller call go.
-    //every item in the queue contain the type of the commend and the commend arguments if exist
+    //every item in the queue contain the type of the command and the command arguments if exist
     View view;
     uint time = 0;
     AgentFactory& factory;
     Model();
-    bool SuccessfulAttack(const Point&) const;//return true if there is no police in 10km radius from the point
+    bool SuccessfulAttack(const Point&) const;//return true if there is no knights in 10km radius from the point
     void addToMap(const std::shared_ptr<SimObject>&);
     std::string getMapObjectType(const std::shared_ptr<SimObject>&) const;//return the string of that map object's name
     std::vector<std::shared_ptr<SimObject>> copyAllMapObject();
 
 
     void updateView();
-    void create(std::vector<std::string>&);//the vector look like this [name of vehicle,type of vehicle,point or warehose to start from]
-    void course(const std::vector<std::string>&);//if it is a TrooperState -> arg.size()=3 (curse,name,angle) and it is a Chopper -> arg.size()=4 (curse,name,angle,speed)
+    void create(std::vector<std::string>&);//the vector look like this [name of agent,type of agent,point or castle to start from]
+    void course(const std::vector<std::string>&);//if it is a TrooperState -> arg.size()=3 (curse,name,angle) and it is a Thug -> arg.size()=4 (curse,name,angle,speed)
     void position(const std::vector<std::string>&);
     void destination(const std::vector<std::string>& arg);
     bool attack(const std::vector<std::string>& arg);//return true if the attack succeeded
     void stopped(const std::string& arg);
-    const Point& FindWarehouse(const std::string&) const;
+    const Point& FindCastle(const std::string&) const;
 };
-#endif
+
 
 #endif //EX3_SIMMEDIEVAL_MODEL_H

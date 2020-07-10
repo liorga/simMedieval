@@ -31,3 +31,19 @@ double Point::parseY(const string & arg) {
     int len = arg.find_first_of(")")-start;
     return std::stod(arg.substr(start,len ));
 }
+
+double Point::getX() const {
+    return x;
+}
+
+void Point::setX(double x) {
+    Point::x = x;
+}
+
+double Point::getY() const {
+    return y;
+}
+
+void Point::setY(double y) {
+    Point::y = y;
+}
