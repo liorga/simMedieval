@@ -10,10 +10,6 @@ Structure::~Structure() {
 
 }
 
-Point& Structure::getLocation() {
-    Point p(0,0);
-    return p;
-}
 
 void Structure::update() {
 
@@ -27,9 +23,6 @@ uint Structure::withdrew() {
     return 0;
 }
 
-void Structure::setLocation(const Point& location) {
-    Structure::location = location;
-}
 
 uint Structure::getInventory() const {
     return inventory;

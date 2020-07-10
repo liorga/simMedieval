@@ -4,6 +4,7 @@
 
 #include "Controller.h"
 #include "Peasant.h"
+#include "InputHandler.h"
 
 using namespace std;
 
@@ -157,7 +158,7 @@ void Controller::Init(int argc, char *argv[])
         for (int i = 1; i < argc; i++)
         {
             temp=argv[i];
-            Model::getInstance().addMapObjects(InputHandler::Handle(temp)); //read structures from the file.
+            Model::getInstance().addMapObjects(InputHandler::handle(temp)); //read structures from the file.
         }
     }
     catch (NumOfArgumentsError& e)

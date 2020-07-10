@@ -22,3 +22,12 @@ void SimObject::broadcest_current_state() {
 const string& SimObject::getName() const {
     return name;
 }
+
+void SimObject::setLocation(const Point &p) {
+    location = p;
+}
+
+Point &SimObject::getLocation() {
+    return location;
+}
+

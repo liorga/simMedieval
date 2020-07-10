@@ -28,7 +28,8 @@ public:
     const string& getState() const;
     void setState(const string& state);
 
-    Point& get_location();
+    Point& getLocation();
+    void setLocation();
     void move_to();
     virtual void update() = 0;
 

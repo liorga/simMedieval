@@ -67,3 +67,6 @@ bool Point::operator<=(const Point &rhs) const {
 bool Point::operator>=(const Point &rhs) const {
     return !(*this < rhs);
 }
+pair<double, double> Point::get() const{
+    return pair<double,double>(x,y);
+} //return both x and y

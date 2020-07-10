@@ -9,7 +9,7 @@ InputHandler::InputHandler() = default;
 
 InputHandler::~InputHandler() = default;
 
-vector<shared_ptr<Structure>>& InputHandler::handle(string filename) {
+vector<shared_ptr<SimObject>>& InputHandler::handle(string filename) {
     if(filename.compare("farms.dat") == 0){
         return InputHandler::handleFarm(filename);
     }
@@ -21,8 +21,8 @@ vector<shared_ptr<Structure>>& InputHandler::handle(string filename) {
 }
 
 
-vector<shared_ptr<Structure>>& InputHandler::handleFarm(string farms_file) {
-    vector<shared_ptr<Structure>>* farms = new vector<shared_ptr<Structure>>();
+vector<shared_ptr<SimObject>>& InputHandler::handleFarm(string farms_file) {
+    vector<shared_ptr<SimObject>>* farms = new vector<shared_ptr<SimObject>>();
     ifstream in(farms_file);
     string line;
     string my_str;
@@ -49,8 +49,8 @@ vector<shared_ptr<Structure>>& InputHandler::handleFarm(string farms_file) {
 }
 
 
-vector<shared_ptr<Structure>>& InputHandler::handleCastle(string castles_file) {
-    vector<shared_ptr<Structure>>* castles = new vector<shared_ptr<Structure>>();
+vector<shared_ptr<SimObject>>& InputHandler::handleCastle(string castles_file) {
+    vector<shared_ptr<SimObject>>* castles = new vector<shared_ptr<SimObject>>();
     ifstream in(castles_file);
     string line;
 

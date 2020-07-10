@@ -26,7 +26,6 @@ public:
     uint withdrew();
 
 private:
-    Point location;
     uint inventory;
 };
 

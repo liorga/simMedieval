@@ -19,9 +19,9 @@ public:
     InputHandler();
     virtual ~InputHandler();
 
-    static vector<shared_ptr<Structure>>& handle(string filename);
-    static vector<shared_ptr<Structure>>& handleFarm(string farms_file);
-    static vector<shared_ptr<Structure>>& handleCastle(string castles_file);
+    static vector<shared_ptr<SimObject>>& handle(string filename);
+    static vector<shared_ptr<SimObject>>& handleFarm(string farms_file);
+    static vector<shared_ptr<SimObject>>& handleCastle(string castles_file);
 
     class WrongFileExcption{
     public:

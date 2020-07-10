@@ -18,12 +18,14 @@ public:
     virtual ~SimObject();
 
     const string& getName() const;
-    virtual Point& getLocation() = 0;
+    Point& getLocation();
+    void setLocation(const Point& p);
     virtual void update() = 0;
     void broadcest_current_state();
 
 protected:
     string name;
+    Point location;
 };
 
 

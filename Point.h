@@ -31,6 +31,7 @@ public:
     double getY() const;
 
     void setY(double y);
+    pair<double, double> get() const;
 
 private:
     double x;

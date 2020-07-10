@@ -14,7 +14,7 @@ public:
     virtual ~Knight();
 
     void update() override;
-    Point& getLocation() override;
+
 
 private:
 
