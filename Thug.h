@@ -16,10 +16,14 @@ public:
     void update() override;
     Point& getLocation() override;
 
+    uint getAttackRange() const;
+
+    void setAttackRange(uint attackRange);
+
     void attack();
 
 private:
-
+    uint attackRange;
 };
 
 

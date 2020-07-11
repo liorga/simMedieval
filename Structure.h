@@ -25,6 +25,8 @@ public:
     void deposit();
     uint withdrew();
 
+    ostream &operator<<(ostream &os, const SimObject &object) override;
+
 private:
     uint inventory;
 };

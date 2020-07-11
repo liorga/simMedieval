@@ -33,6 +33,8 @@ public:
     void setY(double y);
     pair<double, double> get() const;
 
+    friend ostream &operator<<(ostream &os, const Point &point);
+
 private:
     double x;
     double y;

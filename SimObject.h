@@ -23,6 +23,8 @@ public:
     virtual void update() = 0;
     void broadcest_current_state();
 
+    virtual ostream& operator<<(ostream &os, const SimObject &object);
+
 protected:
     string name;
     Point location;

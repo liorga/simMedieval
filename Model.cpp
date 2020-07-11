@@ -3,99 +3,243 @@
 //
 
 #include "Model.h"
-
-Model::~Model() {
-
-}
-
-Model &Model::getInstance() {
-    return <#initializer#>;
-}
-
-void Model::addMapObjects(const vector<std::shared_ptr<SimObject>> &) {
-
-}
-
-uint Model::getTime() const {
-    return 0;
-}
-
-std::shared_ptr<SimObject> Model::findMapObjectByName(std::string) const {
-    return std::shared_ptr<SimObject>();
-}
-
-Castle &Model::getClosestCastle(const Point &) const {
-    return <#initializer#>;
-}
-
-bool Model::existInTheMap(std::string) const {
-    return false;
-}
-
-void Model::addCommand(Model::COMMANDS, const vector<std::string> &arg) {
+#include <utility>
+#include <typeinfo>
+#include <algorithm>//somthing
+#include <sstream>
+#include <climits>
+#include "Castle.h"
+#include "Farm.h"
+#include "Thug.h"
+#include "Peasant.h"
+#include "Knight.h"
+#include <cmath>
+using namespace std;
+/***********************************************************************private methods ******************************************************************************/
+Model::Model():nameANDtype(),mapObjects(),commands(),view(),time(0),factory(AgentFactory::getInstance()){
 
 }
 
-View &Model::getView() {
-    return <#initializer#>;
+void Model::addToMap(const std::shared_ptr<SimObject>& p)//add map object use in addMapObjects
+{
+    string type=getMapObjectType(p);
+    mapObjects.emplace(type,p);
+    nameANDtype.emplace(p->getName(),type);
 }
 
-void Model::_go() {
+
+string Model::getMapObjectType(const std::shared_ptr<SimObject>& p) const//return the string of that map objects
+{
+   return typeid(*p).name();
+}
+
+vector<shared_ptr<SimObject>> Model::copyAllMapObject()
+{
+    vector<shared_ptr<SimObject>> ret;
+    for(auto it:mapObjects)
+        ret.push_back(it.second);
+    return ret;
+}
+void Model::updateView()
+{
+    for(auto tmp:mapObjects)
+    {
+        if(typeid(*tmp.second)== typeid(Castle)||
+            typeid(*tmp.second) == typeid(Farm))
+            continue;
+        //else is a type an Agent
+        Agent& v=dynamic_cast<Agent&>(*tmp.second);
+        v.update();
+    }
+    view.push(copyAllMapObject());
+}
+
+
+void Model::status() const// print the status of every object in the map
+{
+    for_each(mapObjects.begin(),mapObjects.end(),[](const pair<string,shared_ptr<SimObject>>& p){
+        cout << *p.second <<endl;
+    });
+}
+void Model::create(vector<string>& arg)//the vector look like this [name of agent,type of agent,point or castle to start from]
+{
+    swap(arg[1],arg[2]);
+    addToMap(factory.createAgent(arg));
+}
+void Model::course(const vector<string>& arg)//if it is a TrooperState -> arg.size()=3 (name,curse,angle) and it is a Chopper -> arg.size()=4 (name,curse,angle,speed)
+{//change the car
+    float direction,speed;
+    Agent &gent=dynamic_cast<Agent&>(*findMapObjectByName(arg[0]));
+    stringstream stream(arg[2]);
+    stream>>direction;
+    gent.setDirection(direction);
+    if(arg.size()==4){
+        stringstream temp(arg[3]);
+        temp>>speed;
+        gent.setSpeed(speed);
+    }
+    gent.course(direction);
+}
+void Model::position(const vector<string>& arg)//if it is a Knight -> arg.size()=3 (name,position,Point) and it is a Thug -> arg.size()=4 (name,position,Point,speed)
+{
+    float speed;
+    Agent &gent=dynamic_cast<Agent&>(*findMapObjectByName(arg[0]));
+    stringstream stream(arg[2]);
+    Point p(Point::parseX(arg[2]),Point::parseY(arg[0]));
+    if(arg.size()==4){
+        stream>>speed;
+        gent.setSpeed(speed);
+    }
+    gent.Position(p);
+}
+void Model::destination(const vector<string>& arg)//only a Knight -> arg.size()=3 (name,destination,castle name)
+{
+    if(!existInTheMap(arg[0])){
+        cout<<mapObjects.size()<<endl;
+        return;
+    }
+    Knight &sir=dynamic_cast<Knight&>(*findMapObjectByName(arg[0]));
+    sir.destination(arg[2]);
+}
+
+void Model::stopped(const string& arg){
+    Agent &gent=dynamic_cast<Agent&>(*findMapObjectByName(arg));
+    gent.stop();
 
 }
 
-void Model::status() const {
-
+bool Model::SuccessfulAttack(const Point& p) const//return true if there is no knights in 10km radius from the point
+{
+    auto police=mapObjects.find("Knight");//return all the Knights in the map
+    while(police!=mapObjects.end())
+    {
+        Point tmp_p=(police->second->getLocation());
+        if((p-tmp_p)<=0.1)
+            return false;
+    }
+    return true;
 }
 
-Model::Model() {
 
+bool Model::attack(const vector<string>& arg)// arg=[Thug name,"attack",Peasant name]
+{
+    Thug &t=dynamic_cast<Thug&>(*findMapObjectByName(arg[0]));
+    Peasant &p=dynamic_cast<Peasant&>(*findMapObjectByName(arg[2]));
+    t.stop();
+    --p;
+    if((t.getAttackRange()<(t.getLocation()-p.getLocation())) || !(SuccessfulAttack(t.getLocation()))){
+        --t;
+        return false;
+    }
+    ++t;
+    p.attack(); //change attack implementation to ONLY INVOLVE INVENTORY
+    return true;
 }
 
-bool Model::SuccessfulAttack(const Point &) const {
-    return false;
+/***********************************************************************public methods ******************************************************************************/
+
+Model& Model::getInstance()
+{
+    static Model model;
+    return model;
 }
 
-void Model::addToMap(const shared_ptr<SimObject> &) {
+Model::~Model(){}
 
+void Model::addMapObjects(const vector<shared_ptr<SimObject>>& objects)
+{
+    for(auto p:objects)
+        addToMap(p);
+    view.push(copyAllMapObject());
 }
 
-std::string Model::getMapObjectType(const shared_ptr<SimObject> &) const {
-    return std::__cxx11::string();
+bool Model::existInTheMap(string str) const//receive a of an object and return true if it is in the map
+{
+    return (nameANDtype.find(str)!=nameANDtype.end());
 }
 
-std::vector<std::shared_ptr<SimObject>> Model::copyAllMapObject() {
-    return std::vector<std::shared_ptr<SimObject>>();
+shared_ptr<SimObject> Model::findMapObjectByName(string str) const//return a pointer to map object or null if this object dose not exist
+{
+    if(!existInTheMap(str))
+        return shared_ptr<SimObject>();
+    string type = nameANDtype.find(str)->second;
+    auto res=find_if(mapObjects.find(type),mapObjects.end(),[&str](const pair<string,shared_ptr<SimObject>>& a)->bool{
+        return (!str.compare(a.second->getName()));
+    });
+    return res->second;
 }
 
-void Model::updateView() {
-
+unsigned int Model::getTime() const
+{
+    return time;
 }
 
-void Model::create(vector<std::string> &) {
-
+Castle& Model::getClosestCastle(const Point &p) const{
+    pair<shared_ptr<SimObject>,float> minDis(shared_ptr<SimObject>(),UINT_MAX);
+    auto tmp=mapObjects.find("Castle");
+    while(tmp!=mapObjects.end())
+    {
+        Point tmp_p=(tmp->second->getLocation());
+        float sum=((p.getX()-tmp_p.getX())*(p.getX()-tmp_p.getX()))+((p.getY()-tmp_p.getY())*(p.getY()-tmp_p.getY()));
+        float dist=sqrt(sum);
+        if(dist<minDis.second){
+            minDis.first=(tmp->second);
+            minDis.second=dist;
+        }
+        tmp++;
+    }
+    return dynamic_cast<Castle&>(*minDis.first);
 }
 
-void Model::course(const vector<std::string> &) {
 
+const Point& Model::FindCastle(const std::string& name) const
+{
+    return findMapObjectByName(name)->getLocation();
 }
 
-void Model::position(const vector<std::string> &) {
-
+void Model::addCommand(Model::COMMANDS c,const vector<string>& arg)//add commend to the queue
+//assuming the command and all the arguments are ok
+{
+    commands.emplace(pair<Model::COMMANDS,vector<string>>(c,arg));
 }
 
-void Model::destination(const vector<std::string> &arg) {
-
+View& Model::getView()
+{
+    return view;
 }
 
-bool Model::attack(const vector<std::string> &arg) {
-    return false;
-}
-
-void Model::stopped(const string &arg) {
-
-}
-
-const Point &Model::FindWarehouse(const string &) const {
-    return <#initializer#>;
+void Model::_go()
+{
+    time++;
+    while(!commands.empty())
+    {
+        auto pair=commands.front();
+        auto commend=pair.first;
+        switch (commend)
+        {
+            case Model::STATUS:
+                status();
+                break;
+            case Model::CREATE:
+                create(pair.second);
+                break;
+            case Model::COURSE:
+                course(pair.second);
+                break;
+            case Model::POSITION:
+                position(pair.second);
+                break;
+            case Model::DESTINATION:
+                destination(pair.second);
+                break;
+            case Model::ATTACK:
+                attack(pair.second);
+                break;
+            case Model::STOPPED:
+                stopped(pair.second[0]);
+                break;
+        }
+        commands.pop();
+    }
+    updateView();
 }

@@ -16,7 +16,7 @@
 
 class Agent : public SimObject , private Moving_Object{
 private:
-    int health;
+    uint health;
     string state;
 public:
     Agent(const Point& location, int speed, const string& name, int health);
@@ -34,7 +34,17 @@ public:
     virtual void update() = 0;
 
 
+    /*Actions*/
+    void stop();
+    void destination(const Point& p);
+    void course();
+    void attack();
 
+
+    Agent& operator++();
+    Agent& operator--();
+
+    ostream &operator<<(ostream &os, const SimObject &object) override;
 };
 
 

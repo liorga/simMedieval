@@ -69,4 +69,10 @@ bool Point::operator>=(const Point &rhs) const {
 }
 pair<double, double> Point::get() const{
     return pair<double,double>(x,y);
-} //return both x and y
+}
+
+ostream &operator<<(ostream &os, const Point &point) {
+    os << setprecision(2) << "(" << point.x << ", " << point.y << ")" << " ";;
+    return os;
+}
+//return both x and y

@@ -31,3 +31,10 @@ uint Structure::getInventory() const {
 void Structure::setInventory(uint inventory) {
     Structure::inventory = inventory;
 }
+
+ostream &Structure::operator<<(ostream &os,  SimObject &object) {
+    return SimObject::operator<<(os, object);
+    Structure& s = dynamic_cast<Structure&>(object);
+    os<< "position " << s.getLocation() << ", Inventory: " << s.getInventory()<<std::endl;
+    return os;
+}

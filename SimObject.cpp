@@ -3,7 +3,7 @@
 //
 
 #include "SimObject.h"
-
+#include <typeinfo>
 SimObject::SimObject() {
 
 }
@@ -29,5 +29,10 @@ void SimObject::setLocation(const Point &p) {
 
 Point &SimObject::getLocation() {
     return location;
+}
+
+ostream &operator<<(ostream &os, const SimObject &object) {
+    os << typeid(object).name()<<" "<< object.getName() << " at ";
+    return os;
 }
 

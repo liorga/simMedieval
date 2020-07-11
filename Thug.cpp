@@ -25,3 +25,11 @@ void Thug::attack() {
     h--;
     this->setHealth(h);
 }
+
+uint Thug::getAttackRange() const {
+    return attackRange;
+}
+
+void Thug::setAttackRange(uint attackRange) {
+    Thug::attackRange = attackRange;
+}
