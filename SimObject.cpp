@@ -8,14 +8,14 @@ SimObject::SimObject() {
 
 }
 
-SimObject::SimObject(const string& name) : name(name) {}
+SimObject::SimObject(const string& name, const Point& p) : name(name), location(p) {}
 
 
 SimObject::~SimObject() {
 
 }
 
-void SimObject::broadcest_current_state() {
+void SimObject::broadcast_current_state() {
 
 }
 

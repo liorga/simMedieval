@@ -32,16 +32,16 @@ void View::fixMapObjects()//fix the coordinates in map objects
 }
 
 /***********************************************************************public methods ******************************************************************************/
-View::View():window_size(25),map_scale(2),map_origin(-10,-10),map_objects(),all_Objects(){}
+View::View():window_size(DEFAULT_MAP_SIZE),map_scale(2),map_origin(-10,-10),map_objects(),all_Objects(){}
 
 void View::push(vector<shared_ptr<SimObject>>&& vec){//update map_objects
     all_Objects.clear();
     all_Objects=vec;
 }
 void View::_default(){//go back to default view
-    window_size=25; map_scale=2;map_origin=Point(-10,-10);
+    window_size=DEFAULT_MAP_SIZE; map_scale=2;map_origin=Point(-10,-10);
 }
-void View::_size(unsigned int size)// change the window size
+void View::_size(uint size)// change the window size
 {
     window_size=size;
 }
@@ -70,7 +70,7 @@ void View::_show(std::ostream& out)//show the map in the ostream
     });
     map_objects.resize(distance(map_objects.begin(),end));
     auto it=map_objects.begin();
-    int maxY=map_origin.getY()+(map_scale*window_size) - map_scale,maxX=map_origin.getX()+(map_scale*window_size) - map_scale;
+    int maxY=map_origin.getY()+(map_scale*window_size) - map_scale, maxX=map_origin.getX()+(map_scale*window_size) - map_scale;
     for(int y=maxY,line=0;y>=map_origin.getY();y-=map_scale,line++){
         (!(line%3))? out<<setw(4)<<y<<" " : out<<setw(5)<<" ";//print the line number or space
         for(int x=map_origin.getX();x<=maxX;x+=map_scale){

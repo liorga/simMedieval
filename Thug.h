@@ -24,6 +24,7 @@ public:
 
 private:
     uint attackRange;
+    float speed;
 };
 
 

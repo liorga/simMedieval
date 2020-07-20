@@ -114,20 +114,13 @@ void Controller::status()
 void Controller::create(vector<string>& temp)
 {
     if(Model::getInstance().existInTheMap(temp[1]))throw IllegalCommandError();
-    if(temp[2]=="Chopper"){
-        Model::getInstance().addCommand(Model::CREATE,temp);
-        return;
-    }
-    if(temp[2]=="State_trooper"&& Model::getInstance().existInTheMap(temp[3])){
-        Model::getInstance().addCommand(Model::CREATE,temp);
-        return;
-    }
-    throw IllegalCommandError();
+    Model::getInstance().addCommand(Model::CREATE,temp);
 }
 /****************************************************/
 void Controller::attack(vector<string>& temp)
 {
-    if(temp.size()!=3 || ( (Model::getInstance().existInTheMap(temp[2]) && (typeid(Model::getInstance().findMapObjectByName(temp[2])).name()!="Peasant")))) throw IllegalCommandError();
+    if(temp.size()!=3 ||!Model::getInstance().existInTheMap(temp[2])|| ( (Model::getInstance().existInTheMap(temp[2]) && (typeid(Model::getInstance().findMapObjectByName(temp[2])).name()!="Peasant"))))
+        throw IllegalCommandError();
     if(typeid(*Model::getInstance().findMapObjectByName(temp[0])).name()=="Thug")
         Model::getInstance().addCommand(Model::ATTACK,temp);
     else  throw IllegalCommandError();
@@ -154,7 +147,6 @@ void Controller::Init(int argc, char *argv[])
     string temp;
     try{
         if (argc != 3) throw NumOfArgumentsError();
-        //need to initialize farms.dat and castles.dat
         for (int i = 1; i < argc; i++)
         {
             temp=argv[i];

@@ -23,11 +23,11 @@ public:
     Point& getLocation() override;
     virtual void update() = 0;
     void deposit();
-    uint withdrew();
+    uint withdraw();
 
     ostream &operator<<(ostream &os, const SimObject &object) override;
 
-private:
+protected:
     uint inventory;
 };
 

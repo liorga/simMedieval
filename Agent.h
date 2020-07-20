@@ -9,15 +9,23 @@
 #define PEASANT_SPEED 5
 #define KNIGHT_SPEED 10
 #define KNIGHT_LIFE 1000
+#define DEGREES 360
 #define MAX_BOXES 5
 
+#include <memory>
+#include <ostream>
 #include "SimObject.h"
-#include "Moving_Object.h"
 
-class Agent : public SimObject , private Moving_Object{
-private:
+
+class Agent : public SimObject {
+protected:
+    enum State{stopped, dead, Moving};
     uint health;
-    string state;
+    State state;
+    double speed;
+    double direction;
+    Point dest;
+
 public:
     Agent(const Point& location, int speed, const string& name, int health);
 
@@ -25,26 +33,26 @@ public:
 
     int getHealth() const;
     void setHealth(int health);
-    const string& getState() const;
-    void setState(const string& state);
-
-    Point& getLocation();
-    void setLocation();
+    const Agent::State getState() const;
+    void setState(State s);
+    void setDirection(double direction);
     void move_to();
     virtual void update() = 0;
-
+    void setSpeed(double s);
 
     /*Actions*/
     void stop();
-    void destination(const Point& p);
     void course();
-    void attack();
+
+    virtual void attack();
+    void position(const Point& p);
 
 
     Agent& operator++();
     Agent& operator--();
 
-    ostream &operator<<(ostream &os, const SimObject &object) override;
+
+
 };
 
 

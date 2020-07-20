@@ -14,16 +14,16 @@ class SimObject {
 
 public:
     SimObject();
-    SimObject(const string& name);
+    SimObject(const string& name, const Point& p);
     virtual ~SimObject();
 
     const string& getName() const;
     Point& getLocation();
     void setLocation(const Point& p);
     virtual void update() = 0;
-    void broadcest_current_state();
+    virtual void broadcast_current_state();
 
-    virtual ostream& operator<<(ostream &os, const SimObject &object);
+    friend ostream &operator<<(ostream &os, const SimObject &object);
 
 protected:
     string name;

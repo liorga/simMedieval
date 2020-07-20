@@ -30,6 +30,7 @@ public:
     View& operator=(const View&)=default;
     View& operator=(View&&)=default;
     ~View();
+    //functions
     void push(std::vector<std::shared_ptr<SimObject>>&&);//update map_objects
     void _default();//go back to default view
     void _size(uint);// change the window size

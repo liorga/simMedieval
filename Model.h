@@ -34,14 +34,14 @@ public:
     bool existInTheMap(std::string) const;//receive a of an object and return true if it is in the map
     void addCommand(COMMANDS,const std::vector<std::string>& arg);//add command to the queue, the arguments are already cheacked and confirmed
     View& getView();
-    void _go();//go over the commends queue and apply all the commends4
+    void _go();//go over the commands queue and apply all the commands
     void status() const;
 
 private:
-    std::map<std::string,std::string> nameANDtype;//name and type of all the object in the map -> type{"Warehouse","Truck","Chopper","Police"}
-    std::unordered_multimap<std::string,std::shared_ptr<SimObject>> mapObjects;//the string is the type of the object
+    std::map<std::string,std::string> nameANDtype;//name and type of all the objects in the map
+    std::unordered_multimap<std::string,std::shared_ptr<SimObject>> mapObjects;//the string is the type of the object - might change collection
     std::queue<std::pair<Model::COMMANDS,std::vector<std::string>>> commands;//commands from the controller, run them when the controller call go.
-    //every item in the queue contain the type of the commend and the commend arguments if exist
+    //every item in the queue contain the type of the command and the command arguments if exist
     View view;
     uint time = 0;
     AgentFactory& factory;

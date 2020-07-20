@@ -15,7 +15,6 @@ void Knight::update() {
 
 }
 
-Point& Knight::getLocation() {
-    Point p(0,0);
-    return p;
-}
+
+
+

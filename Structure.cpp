@@ -19,7 +19,7 @@ void Structure::deposit() {
 
 }
 
-uint Structure::withdrew() {
+uint Structure::withdraw() {
     return 0;
 }
 
@@ -32,9 +32,3 @@ void Structure::setInventory(uint inventory) {
     Structure::inventory = inventory;
 }
 
-ostream &Structure::operator<<(ostream &os,  SimObject &object) {
-    return SimObject::operator<<(os, object);
-    Structure& s = dynamic_cast<Structure&>(object);
-    os<< "position " << s.getLocation() << ", Inventory: " << s.getInventory()<<std::endl;
-    return os;
-}

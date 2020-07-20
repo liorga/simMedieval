@@ -13,6 +13,7 @@
 #include "Thug.h"
 #include "Peasant.h"
 #include "Knight.h"
+#include "Controller.h"
 #include <cmath>
 using namespace std;
 /***********************************************************************private methods ******************************************************************************/
@@ -30,7 +31,8 @@ void Model::addToMap(const std::shared_ptr<SimObject>& p)//add map object use in
 
 string Model::getMapObjectType(const std::shared_ptr<SimObject>& p) const//return the string of that map objects
 {
-   return typeid(*p).name();
+    //return typeid(*p).name();
+   return nameANDtype.find(p->getName())->second;
 }
 
 vector<shared_ptr<SimObject>> Model::copyAllMapObject()
@@ -47,9 +49,9 @@ void Model::updateView()
         if(typeid(*tmp.second)== typeid(Castle)||
             typeid(*tmp.second) == typeid(Farm))
             continue;
-        //else is a type an Agent
+        //else is a type an Agent - should we add a vector of Agents ans seperate it from the structures?
         Agent& v=dynamic_cast<Agent&>(*tmp.second);
-        v.update();
+        v.update(); // need to make adjustments
     }
     view.push(copyAllMapObject());
 }
@@ -63,59 +65,59 @@ void Model::status() const// print the status of every object in the map
 }
 void Model::create(vector<string>& arg)//the vector look like this [name of agent,type of agent,point or castle to start from]
 {
-    swap(arg[1],arg[2]);
     addToMap(factory.createAgent(arg));
 }
-void Model::course(const vector<string>& arg)//if it is a TrooperState -> arg.size()=3 (name,curse,angle) and it is a Chopper -> arg.size()=4 (name,curse,angle,speed)
-{//change the car
+void Model::course(const vector<string>& arg)//if it is a  Peasant-> arg.size()=3 (name,course,angle) and it is a Thug -> arg.size()=4 (name,course,angle,speed)
+{
     float direction,speed;
     Agent &gent=dynamic_cast<Agent&>(*findMapObjectByName(arg[0]));
     stringstream stream(arg[2]);
     stream>>direction;
-    gent.setDirection(direction);
+    gent.setDirection(direction); // Agents setDirection computes the angle
     if(arg.size()==4){
         stringstream temp(arg[3]);
         temp>>speed;
         gent.setSpeed(speed);
     }
-    gent.course(direction);
+    gent.course();
 }
-void Model::position(const vector<string>& arg)//if it is a Knight -> arg.size()=3 (name,position,Point) and it is a Thug -> arg.size()=4 (name,position,Point,speed)
+void Model::position(const vector<string>& arg)//if it is a Knight/Peasant -> arg.size()=3 (name,position,Point) and it is a Thug -> arg.size()=4 (name,position,Point,speed)
 {
     float speed;
     Agent &gent=dynamic_cast<Agent&>(*findMapObjectByName(arg[0]));
-    stringstream stream(arg[2]);
-    Point p(Point::parseX(arg[2]),Point::parseY(arg[0]));
+
+    Point p(Point::parseX(arg[2]),Point::parseY(arg[2]));
     if(arg.size()==4){
+        stringstream stream(arg[3]);
         stream>>speed;
         gent.setSpeed(speed);
     }
-    gent.Position(p);
+    gent.position(p);
 }
 void Model::destination(const vector<string>& arg)//only a Knight -> arg.size()=3 (name,destination,castle name)
 {
-    if(!existInTheMap(arg[0])){
-        cout<<mapObjects.size()<<endl;
+    if(!existInTheMap(arg[0]) || !existInTheMap(arg[2])){
+        throw Controller::IllegalCommandError();
         return;
     }
     Knight &sir=dynamic_cast<Knight&>(*findMapObjectByName(arg[0]));
-    sir.destination(arg[2]);
+    sir.position(findMapObjectByName(arg[2])->getLocation());
 }
 
 void Model::stopped(const string& arg){
     Agent &gent=dynamic_cast<Agent&>(*findMapObjectByName(arg));
     gent.stop();
-
 }
 
 bool Model::SuccessfulAttack(const Point& p) const//return true if there is no knights in 10km radius from the point
 {
-    auto police=mapObjects.find("Knight");//return all the Knights in the map
-    while(police!=mapObjects.end())
+    auto knights = mapObjects.find("Knight");//return all the Knights in the map
+    while(knights!=mapObjects.end())
     {
-        Point tmp_p=(police->second->getLocation());
-        if((p-tmp_p)<=0.1)
+        Point tmp_p=(knights->second->getLocation());
+        if(p.distance(tmp_p)<=0.1) // might change according to scale
             return false;
+        //how to iterate through all the knights in map/the area?
     }
     return true;
 }
@@ -127,7 +129,7 @@ bool Model::attack(const vector<string>& arg)// arg=[Thug name,"attack",Peasant 
     Peasant &p=dynamic_cast<Peasant&>(*findMapObjectByName(arg[2]));
     t.stop();
     --p;
-    if((t.getAttackRange()<(t.getLocation()-p.getLocation())) || !(SuccessfulAttack(t.getLocation()))){
+    if((t.getAttackRange()<(t.getLocation().distance(p.getLocation())) || !(SuccessfulAttack(t.getLocation())))){
         --t;
         return false;
     }
@@ -161,7 +163,7 @@ bool Model::existInTheMap(string str) const//receive a of an object and return t
 shared_ptr<SimObject> Model::findMapObjectByName(string str) const//return a pointer to map object or null if this object dose not exist
 {
     if(!existInTheMap(str))
-        return shared_ptr<SimObject>();
+        return nullptr;
     string type = nameANDtype.find(str)->second;
     auto res=find_if(mapObjects.find(type),mapObjects.end(),[&str](const pair<string,shared_ptr<SimObject>>& a)->bool{
         return (!str.compare(a.second->getName()));
@@ -192,10 +194,7 @@ Castle& Model::getClosestCastle(const Point &p) const{
 }
 
 
-const Point& Model::FindCastle(const std::string& name) const
-{
-    return findMapObjectByName(name)->getLocation();
-}
+
 
 void Model::addCommand(Model::COMMANDS c,const vector<string>& arg)//add commend to the queue
 //assuming the command and all the arguments are ok
@@ -214,8 +213,8 @@ void Model::_go()
     while(!commands.empty())
     {
         auto pair=commands.front();
-        auto commend=pair.first;
-        switch (commend)
+        auto command=pair.first;
+        switch (command)
         {
             case Model::STATUS:
                 status();

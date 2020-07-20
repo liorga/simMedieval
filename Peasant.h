@@ -14,16 +14,16 @@ public:
     Peasant( const string& name = "",const Point& location = Point(0,0),int speed = PEASANT_SPEED, int health = PEASANT_HEALTH);
     virtual ~Peasant();
 
-    uint getBeg() const;
+    uint getBag() const;
     void setBeg(uint beg);
-    Point& getLocation() override;
+    Point& getLocation();
     void update() override;
-    void got_attacked();
+    void attack() override;
     void start_working(string farm_src,string castle_dest);
 
 
 private:
-    uint beg; // used to know how much is the peasant invantory(maximum 5 on his back).
+    uint bag; // used to know how much is the peasant inventory(maximum 5 on his back).
 };
 
 #endif //EX3_SIMMEDIEVAL_PEASANT_H

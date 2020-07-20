@@ -1,6 +1,7 @@
 //
 // Created by lior on 03/07/2020.
 //
+#include <cmath>
 #include "Point.h"
 
 Point::Point() {
@@ -74,5 +75,11 @@ pair<double, double> Point::get() const{
 ostream &operator<<(ostream &os, const Point &point) {
     os << setprecision(2) << "(" << point.x << ", " << point.y << ")" << " ";;
     return os;
+}
+
+double Point::distance(const Point &p) const {
+    double newX= x-p.getX();
+    double newY = y-p.getX();
+    return sqrt((newX*newX) + (newY*newY));
 }
 //return both x and y

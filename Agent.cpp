@@ -18,44 +18,32 @@ void Agent::setHealth(int health) {
     Agent::health = health;
 }
 
-const string& Agent::getState() const {
+const Agent::State Agent::getState() const {
     return state;
 }
 
-void Agent::setState(const string& state) {
+void Agent::setState(State s) {
     Agent::state = state;
 }
+// remove Moving object and deal with consequences
+Agent::Agent(const Point& location, int speed, const string& name, int health) :SimObject(name, location), health(health),speed(speed) {}
 
-Agent::Agent(const Point& location, int speed, const string& name, int health) : Moving_Object(location, speed),
-                                                                                 SimObject(name), health(health) {}
 
-Point &Agent::getLocation() {
-    return SimObject::getLocation();
-}
 
-void Agent::setLocation() {
-
-}
 
 void Agent::move_to() {
 
 }
 
 void Agent::stop() {
-
+ setState(stopped);
 }
 
-void Agent::destination(const Point &p) {
 
-}
 
-void Agent::course() {
+void Agent::course() {}
 
-}
-
-void Agent::attack() {
-
-}
+void Agent::attack() {}
 
 Agent &Agent::operator++() {
     ++health;
@@ -65,13 +53,25 @@ Agent &Agent::operator++() {
 Agent &Agent::operator--() {
     --health;
     if(health == 0){
-        setState("Dead");
+        setState(dead);
     }
     return *this;
 }
 
-ostream &Agent::operator<<(ostream &os,  SimObject &object) {
-    Agent& tmp = dynamic_cast<Agent&>(object);
-    SimObject::operator<<(os, object);
-    os <<tmp.getLocation()<< ", " << state<<std::endl;
+void Agent::setSpeed(const double s) {
+    speed = s;
 }
+
+void Agent::setDirection(double direction) {
+
+    this->direction = direction>=DEGREES? direction-DEGREES: direction; // maybe check in model and throw exception?
+
+}
+
+void Agent::position(const Point &p) {
+    dest = p;
+}
+
+
+
+
