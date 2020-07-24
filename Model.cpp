@@ -73,7 +73,7 @@ void Model::course(const vector<string>& arg)//if it is a  Peasant-> arg.size()=
     Agent &gent=dynamic_cast<Agent&>(*findMapObjectByName(arg[0]));
     stringstream stream(arg[2]);
     stream>>direction;
-    gent.setDirection(direction); // Agents setDirection computes the angle
+    gent.setDirection(direction);
     if(arg.size()==4){
         stringstream temp(arg[3]);
         temp>>speed;

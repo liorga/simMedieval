@@ -26,7 +26,7 @@ void Agent::setState(State s) {
     Agent::state = state;
 }
 // remove Moving object and deal with consequences
-Agent::Agent( const string& name,Point location, int speed, int health) :SimObject(name, location), health(health),speed(speed) {}
+Agent::Agent( const string& name,Point location, int speed, int health) :SimObject(name, location), health(health),speed(speed) ,state(stopped){}
 
 
 
@@ -41,7 +41,11 @@ void Agent::stop() {
 
 
 
-void Agent::course() {}
+void Agent::course() {
+    setState(Moving);
+
+
+}
 
 void Agent::attack() {}
 

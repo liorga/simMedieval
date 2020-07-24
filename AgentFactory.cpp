@@ -6,7 +6,6 @@
 
 
 #include "Thug.h"
-#include "TrooperState.h"
 #include "Knight.h"
 #include "Controller.h"
 #include "Model.h"
