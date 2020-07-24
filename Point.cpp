@@ -21,7 +21,7 @@ bool Point::operator==(const Point &rhs) {
     return x == rhs.x && y == rhs.y;
 }
 
-double Point::parseX(const string & arg) {
+double Point::parseX(const string& arg) {
     int start = arg.find_first_of("(")+1;
     int len = arg.find_first_of(",")-start;
     return std::stod(arg.substr(start,len ));

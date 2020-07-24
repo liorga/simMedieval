@@ -37,7 +37,7 @@ vector<shared_ptr<SimObject>>& InputHandler::handleFarm(string farms_file) {
         string name = result[0];
         string point = "";
         point += result[1];
-        point+= ' ';
+        point += ' ';
         point += ',';
         point += result[2];
         uint inventory = stoi(result[3]);
@@ -66,10 +66,11 @@ vector<shared_ptr<SimObject>>& InputHandler::handleCastle(string castles_file) {
         string name = result[0];
         string point = "";
         point += result[1];
-        point = ' ';
+        point += ' ';
         point += ',';
         point += result[2];
         uint inventory = stoi(result[3]);
+        //cout << point << endl;
         //cout << "castle data: " << name << " " << point << " " << inventory << endl;
         shared_ptr<Castle> castle(new Castle(result[0],Point(Point::parseX(point),Point::parseY(point)),inventory));
         castles->push_back(castle);

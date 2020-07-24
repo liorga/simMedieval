@@ -207,6 +207,7 @@ void Controller::Run()
                 continue;
             }
             if(line[0]=="create"){
+                line.erase(line.begin());
                 create(line);
                 continue;
             }

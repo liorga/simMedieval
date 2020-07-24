@@ -23,7 +23,9 @@ Model::Model():nameANDtype(),mapObjects(),commands(),view(),time(0),factory(Agen
 
 void Model::addToMap(const std::shared_ptr<SimObject>& p)//add map object use in addMapObjects
 {
-    string type=getMapObjectType(p);
+    string type = typeid(*p).name();
+    type = type.substr(1,type.length()-1);
+    cout << type << endl;
     mapObjects.emplace(type,p);
     nameANDtype.emplace(p->getName(),type);
 }
@@ -31,8 +33,8 @@ void Model::addToMap(const std::shared_ptr<SimObject>& p)//add map object use in
 
 string Model::getMapObjectType(const std::shared_ptr<SimObject>& p) const//return the string of that map objects
 {
-    //return typeid(*p).name();
-   return nameANDtype.find(p->getName())->second;
+        return nameANDtype.find(p->getName())->second;
+
 }
 
 vector<shared_ptr<SimObject>> Model::copyAllMapObject()
@@ -212,8 +214,8 @@ void Model::_go()
     time++;
     while(!commands.empty())
     {
-        auto pair=commands.front();
-        auto command=pair.first;
+        auto pair = commands.front();
+        auto command = pair.first;
         switch (command)
         {
             case Model::STATUS:
