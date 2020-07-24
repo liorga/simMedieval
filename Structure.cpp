@@ -32,3 +32,9 @@ void Structure::setInventory(uint inventory) {
     Structure::inventory = inventory;
 }
 
+void Structure::print() {
+    string type = typeid(*this).name();
+    type = type.substr(1,type.length()-1);
+    cout << type << " " << this->getName() << " at position" << this->location << " , Inventory: " << this->inventory ;
+}
+

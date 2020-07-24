@@ -7,6 +7,7 @@
 #define ZERO 0
 
 
+#include <ostream>
 #include "Agent.h"
 
 class Peasant : public Agent{

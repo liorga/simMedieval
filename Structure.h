@@ -25,6 +25,8 @@ public:
     void deposit();
     uint withdraw();
 
+    void print() override;
+
     //friend ostream& operator<<(ostream &os, const SimObject &object);
 
 protected:

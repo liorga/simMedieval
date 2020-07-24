@@ -22,8 +22,8 @@ public:
     void setLocation(const Point& p);
     virtual void update() = 0;
     virtual void broadcast_current_state();
+    virtual void print() = 0;
 
-    friend ostream &operator<<(ostream &os, const SimObject &object);
 
 protected:
     string name;

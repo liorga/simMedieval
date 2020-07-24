@@ -35,3 +35,5 @@ void Peasant::setBag(uint bag) {
     Peasant::bag = bag;
 }
 
+
+

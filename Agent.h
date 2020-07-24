@@ -47,10 +47,11 @@ public:
     virtual void attack();
     void position(const Point& p);
 
+    void print() override;
+
 
     Agent& operator++();
     Agent& operator--();
-
 
 
 };

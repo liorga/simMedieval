@@ -31,8 +31,4 @@ Point &SimObject::getLocation() {
     return location;
 }
 
-ostream &operator<<(ostream &os, const SimObject &object) {
-    os << typeid(object).name()<<" "<< object.getName() << " at ";
-    return os;
-}
 

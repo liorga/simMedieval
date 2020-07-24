@@ -62,7 +62,8 @@ void Model::updateView()
 void Model::status() const// print the status of every object in the map
 {
     for_each(mapObjects.begin(),mapObjects.end(),[](const pair<string,shared_ptr<SimObject>>& p){
-        cout << *p.second <<endl;
+        p.second->print();
+        cout << endl;
     });
 }
 void Model::create(vector<string>& arg)//the vector look like this [name of agent,type of agent,point or castle to start from]

@@ -76,6 +76,15 @@ void Agent::position(const Point &p) {
     dest = p;
 }
 
+void Agent::print() {
+    string type = typeid(*this).name();
+    type = type.substr(1,type.length()-1);
+    cout << type << " " << this->getName() << " at " << this->location << " ," << this->getState() ;
+}
+
+
+
+
 
 
 
