@@ -11,7 +11,7 @@
 
 class Peasant : public Agent{
 public:
-    Peasant( const string& name = "",const Point& location = Point(0,0),int speed = PEASANT_SPEED, int health = PEASANT_HEALTH);
+    Peasant(const string& name , Point* location , int speed = PEASANT_SPEED, int health = PEASANT_HEALTH);
     virtual ~Peasant();
 
     uint getBag() const;

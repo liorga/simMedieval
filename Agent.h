@@ -27,7 +27,7 @@ protected:
     Point dest;
 
 public:
-    Agent(const Point& location, int speed, const string& name, int health);
+    Agent(  const string& name, Point location,int speed, int health);
 
     virtual ~Agent();
 
