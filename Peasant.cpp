@@ -24,14 +24,14 @@ void Peasant::start_working(string farm_src, string castle_dest) {
 }
 
 void Peasant::attack() {
-    setBeg(ZERO);
+    setBag(ZERO);
 }
 
 uint Peasant::getBag() const {
     return bag;
 }
 
-void Peasant::setBeg(uint beg) {
-    Peasant::beg = beg;
+void Peasant::setBag(uint bag) {
+    Peasant::bag = bag;
 }
 

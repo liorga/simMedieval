@@ -37,7 +37,8 @@ vector<shared_ptr<SimObject>>& InputHandler::handleFarm(string farms_file) {
         string name = result[0];
         string point = "";
         point += result[1];
-        point += ' ,';
+        point+= ' ';
+        point += ',';
         point += result[2];
         uint inventory = stoi(result[3]);
         uint rate = stoi(result[4]);
@@ -65,7 +66,8 @@ vector<shared_ptr<SimObject>>& InputHandler::handleCastle(string castles_file) {
         string name = result[0];
         string point = "";
         point += result[1];
-        point += ' ,';
+        point = ' ';
+        point += ',';
         point += result[2];
         uint inventory = stoi(result[3]);
         //cout << "castle data: " << name << " " << point << " " << inventory << endl;

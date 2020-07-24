@@ -20,12 +20,12 @@ public:
     uint getInventory() const;
     void setInventory(uint inventory);
 
-    Point& getLocation() override;
+    //Point& getLocation() override;
     virtual void update() = 0;
     void deposit();
     uint withdraw();
 
-    ostream &operator<<(ostream &os, const SimObject &object) override;
+    //friend ostream& operator<<(ostream &os, const SimObject &object);
 
 protected:
     uint inventory;

@@ -59,6 +59,6 @@ private:
     void stopped(const std::string& arg);
     const Point& FindWarehouse(const std::string&) const;
 };
-#endif
+
 
 #endif //EX3_SIMMEDIEVAL_MODEL_H

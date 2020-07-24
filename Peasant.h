@@ -15,8 +15,7 @@ public:
     virtual ~Peasant();
 
     uint getBag() const;
-    void setBeg(uint beg);
-    Point& getLocation();
+    void setBag(uint bag);
     void update() override;
     void attack() override;
     void start_working(string farm_src,string castle_dest);

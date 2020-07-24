@@ -88,3 +88,7 @@ void View::_show(std::ostream& out)//show the map in the ostream
             out<<setw(6)<<i;
     out<<endl;
 }
+
+View::~View() {
+
+}
