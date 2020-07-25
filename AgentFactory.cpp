@@ -29,7 +29,7 @@ shared_ptr<Agent> AgentFactory::createAgent(std::vector<std::string> &arg)
     if(type=="Peasant")//the second argument in the vector is a
         return shared_ptr<Agent>(new Peasant(arg[0], new Point(Point::parseX(arg[2]),Point::parseY(arg[2]))));
     if(type=="Thug")//the arg vector look like this ["Thug",string::name,string::point]
-        return shared_ptr<Agent>(new Thug(arg[0],Point(Point::parseX(arg[3]),Point::parseY(arg[3])),0));
+        return shared_ptr<Agent>(new Thug(arg[0],Point(Point::parseX(arg[2]),Point::parseY(arg[2])),0));
     if(type=="Knight")
     {
         Point p(Model::getInstance().findMapObjectByName(arg[2])->getLocation());

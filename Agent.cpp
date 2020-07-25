@@ -77,9 +77,10 @@ void Agent::position(const Point &p) {
 }
 
 void Agent::print() {
+    string stateArr[3] = {"Stopped", "Dead", "Moving in "+to_string(this->direction)+" deg, speed "+to_string(speed)};
     string type = typeid(*this).name();
     type = type.substr(1,type.length()-1);
-    cout << type << " " << this->getName() << " at " << this->location << " ," << this->getState() ;
+    cout << type << " " << this->getName() << " at " << this->location << "," << stateArr[getState()] <<endl;
 }
 
 
