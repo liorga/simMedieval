@@ -1,15 +1,21 @@
 go through Controller.Run(), and make all of the options work.
-exit - works
-go - works
-show - works
-default
-status - check printings - too many linespaces
-size
-zoom
-pan
-create - check knight creation
-course
-position
-attack
-stop
-destination
+
+
+Model Commands
+    exit - works
+    go - works
+    status - check printings - too many line spaces
+    create - check knight creation
+view Commands
+    show - works
+    default - works
+    size - check line prints.
+    zoom - works
+    pan - works
+Commands after an Agent Name
+    course
+    position
+    attack
+    stop
+    destination
+    start_working

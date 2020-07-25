@@ -70,6 +70,8 @@ void View::_show(std::ostream& out)//show the map in the ostream
     });
     map_objects.resize(distance(map_objects.begin(),end));
     auto it=map_objects.begin();
+    out <<"Display size: "<<window_size<<", scale: "<<map_scale<<", origin:"<<map_origin<<endl;
+
     int maxY=map_origin.getY()+(map_scale*window_size) - map_scale, maxX=map_origin.getX()+(map_scale*window_size) - map_scale;
     for(int y=maxY,line=0;y>=map_origin.getY();y-=map_scale,line++){
         (!(line%3))? out<<setw(4)<<y<<" " : out<<setw(5)<<" ";//print the line number or space

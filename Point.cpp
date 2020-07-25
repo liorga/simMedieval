@@ -73,7 +73,7 @@ pair<double, double> Point::get() const{
 }
 
 ostream &operator<<(ostream &os, const Point &point) {
-    os << setprecision(2) << "(" << point.x << ", " << point.y << ")" << " ";;
+    os <<  "(" << setprecision(2)<<point.x << ", " << point.y << ")"  << " ";;
     return os;
 }
 

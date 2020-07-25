@@ -54,7 +54,7 @@ void Controller::go()
 /****************************************************/
 void Controller::show()
 {
-    Model::getInstance().getView()._show(cout);
+    Model::getInstance().getView()._show(cout<<setprecision(2));
 }
 /****************************************************/
 void Controller::stop(vector<string>& temp)
@@ -96,11 +96,11 @@ void Controller::pan(vector<std::string>& temp)
     string x,y;
     string::iterator b=temp[1].begin();
     string::iterator e=temp[1].end();
-    for(;b!=e && isdigit(*b);x+=*b,b++);
+    for(;b!=e && (isdigit(*b)||*b =='-');x+=*b,b++);
     if(b!=e) throw IllegalCommandError();
     b=temp[2].begin();
     e=temp[2].end();
-    for(;b!=e && isdigit(*b);y+=*b,b++);
+    for(;b!=e && (isdigit(*b)||*b =='-');y+=*b,b++);
     if(b!=e) throw IllegalCommandError();
     Point tmp(stoi(x),stoi(y));
     Model::getInstance().getView()._pan(tmp);
@@ -230,6 +230,9 @@ void Controller::Run()
             if(line[1]=="destination") {
                 destination(line);
                 continue;
+            }
+            if(line[1]=="start_working"){
+                //TODO: implement start_working and parsing for it in MVC
             }
             throw  IllegalCommandError();
         }
