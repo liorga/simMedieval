@@ -1,0 +1,15 @@
+go through Controller.Run(), and make all of the options work.
+exit - works
+go - works
+show - works
+default
+status - check printings - too many linespaces
+size
+zoom
+pan
+create - check knight creation
+course
+position
+attack
+stop
+destination
