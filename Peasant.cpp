@@ -99,23 +99,25 @@ void Peasant::print() {
         type = type.substr(1,type.length()-1);
         if (!VisitedFarm){
             if(this->location.distance(Model::getInstance().findMapObjectByName(farm)->getLocation()) != 0){
-                cout<< type <<" "<< this->getName()<< " at " << this->location << ", Heading to "<< farm<< ", speed "  << to_string(speed)<<" km/h"<<endl;
+                cout<< type <<" "<< this->getName()<< " at " << this->location << ", Heading to "<< farm<< ", speed "  << to_string(speed)<<" km/h";
             }
             else{
-                cout<< type <<" "<< this->getName()<<",  Working at "<<farm<<endl;
+                cout<< type <<" "<< this->getName()<<",  Working at "<<farm;
             }
         }
         else{
             if(this->location.distance(Model::getInstance().findMapObjectByName(castle)->getLocation()) != 0){
-                cout<< type <<" "<< this->getName()<< " at " << this->location << ", Heading to "<< castle<< ", speed " << to_string(speed)<<" km/h"<<endl;
+                cout<< type <<" "<< this->getName()<< " at " << this->location << ", Heading to "<< castle<< ", speed " << to_string(speed)<<" km/h";
             }
             else{
-                cout<< type <<" "<< this->getName()<<",  Working at "<<castle<<endl;
+                cout<< type <<" "<< this->getName()<<",  Working at "<<castle;
             }
         }
         return;
     }
-    Agent::print();
+    else {
+        Agent::print();
+    }
 }
 
 

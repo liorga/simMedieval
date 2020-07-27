@@ -37,7 +37,7 @@ shared_ptr<Agent> AgentFactory::createAgent(std::vector<std::string> &arg)
     if(type=="Knight")
     {
         Point p(Model::getInstance().findMapObjectByName(arg[2])->getLocation());
-        return shared_ptr<Agent>(new Knight(arg[0],p));
+        return shared_ptr<Agent>(new Knight(arg[0],p,arg[2]));
     }
     return nullptr;
 

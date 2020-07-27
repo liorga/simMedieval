@@ -43,7 +43,7 @@ public:
     /*Actions*/
     void stop();
     void course();
-
+    virtual void destination(const string& SiteName);
     virtual void attack();
     void position(const Point& p);
 
