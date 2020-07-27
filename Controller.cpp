@@ -126,6 +126,10 @@ void Controller::attack(vector<string>& temp)
     else  throw IllegalCommandError();
 }
 /****************************************************/
+void Controller::start_working(const vector<string>& temp) {
+    Model::getInstance().addCommand(Model::START_WORKING,temp);
+}
+/****************************************************/
 void Controller::course(vector<string>& temp)
 {
     Model::getInstance().addCommand(Model::COURSE,temp);
@@ -162,6 +166,8 @@ void Controller::Init(int argc, char *argv[])
     Run();
 
 }
+
+
 /****************************************************/
 void Controller::Run()
 {
@@ -232,7 +238,8 @@ void Controller::Run()
                 continue;
             }
             if(line[1]=="start_working"){
-                //TODO: implement start_working and parsing for it in MVC
+                start_working(line);
+                continue;
             }
             throw  IllegalCommandError();
         }
@@ -242,3 +249,4 @@ void Controller::Run()
         }
     }
 }
+

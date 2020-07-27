@@ -33,6 +33,7 @@ public:
     void setY(double y);
     pair<double, double> get() const;
     double distance(const Point& p) const;
+    double angle(const Point& p) const;
     friend ostream &operator<<(ostream &os, const Point &point);
 
 private:

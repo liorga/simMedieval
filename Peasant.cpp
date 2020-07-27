@@ -5,7 +5,7 @@
 #include "Peasant.h"
 
 
-Peasant::Peasant(const string& name, Point* location  , int speed, int health) : Agent(name, *location, speed, health) {
+Peasant::Peasant(const string& name, Point* location  , int speed, int health) : Agent(name, *location, speed, health) ,VisitedFarm(false),farm(),castle(){
     bag = ZERO; // peasant start with an empty bag
 }
 
@@ -19,9 +19,6 @@ void Peasant::update() {
 
 
 
-void Peasant::start_working(string farm_src, string castle_dest) {
-
-}
 
 void Peasant::attack() {
     setBag(ZERO);
@@ -33,6 +30,22 @@ uint Peasant::getBag() const {
 
 void Peasant::setBag(uint bag) {
     Peasant::bag = bag;
+}
+
+void Peasant::start_working(const Point &farm_src, const Point &castle_dest) {
+    setFarm(farm_src);
+    setCastle(castle_dest);
+    setDirection(location.angle(farm_src));
+
+
+}
+
+void Peasant::setFarm(const Point &point) {
+
+}
+
+void Peasant::setCastle(const Point &point) {
+
 }
 
 

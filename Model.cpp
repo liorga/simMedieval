@@ -185,8 +185,7 @@ Castle& Model::getClosestCastle(const Point &p) const{
     while(tmp!=mapObjects.end())
     {
         Point tmp_p=(tmp->second->getLocation());
-        float sum=((p.getX()-tmp_p.getX())*(p.getX()-tmp_p.getX()))+((p.getY()-tmp_p.getY())*(p.getY()-tmp_p.getY()));
-        float dist=sqrt(sum);
+        double dist = p.distance(tmp_p);
         if(dist<minDis.second){
             minDis.first=(tmp->second);
             minDis.second=dist;
@@ -240,8 +239,21 @@ void Model::_go()
             case Model::STOPPED:
                 stopped(pair.second[0]);
                 break;
+            case Model::START_WORKING:
+                start_working(pair.second);
+                break;
+
         }
         commands.pop();
     }
     updateView();
+}
+
+void Model::start_working(const vector<std::string> &arg) {
+    Peasant &p=dynamic_cast<Peasant&>(*findMapObjectByName(arg[0])); //get the objects by name
+    Farm &f = dynamic_cast<Farm&>(*findMapObjectByName(arg[2]));
+    Castle &c = dynamic_cast<Castle&>(*findMapObjectByName(arg[3]));
+
+    p.start_working(f.getLocation(),c.getLocation());
+
 }

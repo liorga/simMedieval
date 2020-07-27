@@ -19,7 +19,7 @@ typedef unsigned int uint;
 
 class Model{
 public:
-    enum COMMANDS{STATUS,CREATE,COURSE,POSITION,DESTINATION,ATTACK,STOPPED};//commands from the controller to the model
+    enum COMMANDS{STATUS,CREATE,COURSE,POSITION,DESTINATION,ATTACK,STOPPED,START_WORKING};//commands from the controller to the model
     Model(Model &&) = delete;
     Model(Model &) = delete;
     Model &operator=(Model &&) = delete;
@@ -57,7 +57,8 @@ private:
     void destination(const std::vector<std::string>& arg);
     bool attack(const std::vector<std::string>& arg);//return true if the attack succeeded
     void stopped(const std::string& arg);
-    const Point& FindWarehouse(const std::string&) const;
+    void start_working(const std::vector<std::string>& arg);
+
 };
 
 

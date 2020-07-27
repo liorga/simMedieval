@@ -75,6 +75,7 @@ class NotInTheModelError: public std::exception{
         }
     };
 
+    void start_working(const vector<string>& vector);
 };
 
 

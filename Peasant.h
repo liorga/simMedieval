@@ -19,11 +19,17 @@ public:
     void setBag(uint bag);
     void update() override;
     void attack() override;
-    void start_working(string farm_src,string castle_dest);
+    void start_working(const Point& farm_src,const Point& castle_dest);
 
 
 private:
+    Point farm;
+    Point castle;
+    bool VisitedFarm;
     uint bag; // used to know how much is the peasant inventory(maximum 5 on his back).
+    void setFarm(const Point &point);
+
+    void setCastle(const Point &point);
 };
 
 #endif //EX3_SIMMEDIEVAL_PEASANT_H

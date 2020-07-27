@@ -3,7 +3,7 @@
 //
 #include <cmath>
 #include "Point.h"
-
+const double pi = 2. * atan2(1., 0.);
 Point::Point() {
     x = 0.0;
     y = 0.0;
@@ -81,5 +81,12 @@ double Point::distance(const Point &p) const {
     double newX= x-p.getX();
     double newY = y-p.getX();
     return sqrt((newX*newX) + (newY*newY));
+}
+
+double Point::angle(const Point &p) const {
+    double phi =  atan2((p.getY()-this->y),(p.getX()-this->getX()));
+    if (phi<0.)
+        phi = 2.*pi +phi;
+    return (phi *180/pi) -90;
 }
 //return both x and y

@@ -43,8 +43,6 @@ void Agent::stop() {
 
 void Agent::course() {
     setState(Moving);
-
-
 }
 
 void Agent::attack() {}
