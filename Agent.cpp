@@ -68,7 +68,7 @@ void Agent::setDirection(double direction) {
 }
 
 double Agent::getDirection() {
-	return this->direction < 90 ? this->direction + 270 : this->direction - 90 ;
+	return DEGREES -this->direction + 90;
 }
 
 void Agent::position(const Point &p) {
