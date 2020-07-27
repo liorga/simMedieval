@@ -62,8 +62,7 @@ void Peasant::update() {
     }
 
 }
-
-
+    
 
 
 void Peasant::attack() {

@@ -1,15 +1,17 @@
 go through Controller.Run(), and make all of the options work.
 
+need to change errors massages to be more to the error
 
 Model Commands
     exit - works
     go - works
     status - check printings - too many line spaces
     create - check knight creation
+
 view Commands
     show - works
     default - works
-    size - check line prints.
+    size - works
     zoom - works
     pan - works
 Commands after an Agent Name

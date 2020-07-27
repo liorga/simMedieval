@@ -63,7 +63,7 @@ void Agent::setSpeed(const double s) {
 
 void Agent::setDirection(double direction) {
 
-    this->direction = direction>=DEGREES? direction-DEGREES: direction; // maybe check in model and throw exception?
+    this->direction = direction >= DEGREES ? direction - DEGREES : direction; // maybe check in model and throw exception?
 
 }
 

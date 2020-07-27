@@ -26,7 +26,7 @@ public:
     Model &operator=(const Model &) = delete;
     ~Model();
 
-    static Model &getInstance();
+    static Model& getInstance();
     void addMapObjects(const std::vector<std::shared_ptr<SimObject>>&);
     uint getTime() const;
     std::shared_ptr<SimObject> findMapObjectByName(std::string) const;//return a pointer to map object or null if this object dose not exist
