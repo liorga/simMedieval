@@ -24,7 +24,11 @@ AgentFactory& AgentFactory::getInstance()
 }
 shared_ptr<Agent> AgentFactory::createAgent(std::vector<std::string> &arg)
 {
-    if(Model::getInstance().existInTheMap(arg[2])&& typeid(Model::getInstance().findMapObjectByName(arg[2])).name() != "Castle")throw Controller::IllegalCommandError(); //  or anything else that represents an error
+    if(Model::getInstance().existInTheMap(arg[2]) ){
+        string typeA = typeid(*(Model::getInstance().findMapObjectByName(arg[2]))).name();
+        if(typeA.substr(1,typeA.length()-1) != "Castle")
+            throw Controller::IllegalCommandError();
+    }  //  or anything else that represents an error
     const string type=arg[1];// the arg vector look like this [Agent name, Agent type, location]
     if(type=="Peasant")//the second argument in the vector is a
         return shared_ptr<Agent>(new Peasant(arg[0], new Point(Point::parseX(arg[2]),Point::parseY(arg[2]))));

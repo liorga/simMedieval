@@ -3,7 +3,7 @@
 //
 
 #include "Structure.h"
-
+#include <typeinfo>
 Structure::Structure(const string& name, const Point& location ,  uint inventory) : SimObject(name,location),inventory(inventory) {}
 
 Structure::~Structure() {
