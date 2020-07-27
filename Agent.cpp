@@ -31,9 +31,6 @@ Agent::Agent( const string& name,Point location, int speed, int health) :SimObje
 
 
 
-void Agent::move_to() {
-
-}
 
 void Agent::stop() {
  setState(stopped);
@@ -71,14 +68,31 @@ void Agent::setDirection(double direction) {
 }
 
 void Agent::position(const Point &p) {
-    dest = p;
+    dest = new Point(p);
 }
 
 void Agent::print() {
-    string stateArr[3] = {"Stopped", "Dead", "Moving in "+to_string(this->direction)+" deg, speed "+to_string(speed)};
+
+    string stateArr[3] = {"Stopped", "Dead", "Moving in "+to_string(this->direction)+" deg, speed "+to_string(speed)+" km/h"};
     string type = typeid(*this).name();
     type = type.substr(1,type.length()-1);
     cout << type << " " << this->getName() << " at " << this->location << "," << stateArr[getState()] <<endl;
+
+}
+
+void Agent::update() {
+    if (state == Moving &&dest != nullptr){
+        advance(*dest);
+    }
+}
+void Agent::advance(const Point& dst){
+    if(location.distance(dst) > 0) {
+        if (location.distance(dst) <= speed) {
+            this->setLocation(dst);
+        } else {
+            location.setRadius(speed, direction);
+        }
+    }
 }
 
 

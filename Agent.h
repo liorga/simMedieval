@@ -24,7 +24,7 @@ protected:
     State state;
     double speed;
     double direction;
-    Point dest;
+    Point* dest;
 
 public:
     Agent(  const string& name, Point location,int speed, int health);
@@ -37,9 +37,9 @@ public:
     void setState(State s);
     void setDirection(double direction);
     void move_to();
-    virtual void update() = 0;
+    virtual void update();
     void setSpeed(double s);
-
+    void advance(const Point& dst);
     /*Actions*/
     void stop();
     void course();

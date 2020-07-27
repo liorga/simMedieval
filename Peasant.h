@@ -5,10 +5,12 @@
 #ifndef EX3_SIMMEDIEVAL_PEASANT_H
 #define EX3_SIMMEDIEVAL_PEASANT_H
 #define ZERO 0
+#define MAX_BAG 5
 
 
 #include <ostream>
 #include "Agent.h"
+#include "Model.h"
 
 class Peasant : public Agent{
 public:
@@ -19,17 +21,18 @@ public:
     void setBag(uint bag);
     void update() override;
     void attack() override;
-    void start_working(const Point& farm_src,const Point& castle_dest);
+    void start_working(const string& farm_src,const string& castle_dest);
+    void print() override;
 
 
 private:
-    Point farm;
-    Point castle;
+    string farm;
+    string castle;
     bool VisitedFarm;
     uint bag; // used to know how much is the peasant inventory(maximum 5 on his back).
-    void setFarm(const Point &point);
+    void setFarm(const string &point);
 
-    void setCastle(const Point &point);
+    void setCastle(const string &point);
 };
 
 #endif //EX3_SIMMEDIEVAL_PEASANT_H

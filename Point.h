@@ -34,11 +34,17 @@ public:
     pair<double, double> get() const;
     double distance(const Point& p) const;
     double angle(const Point& p) const;
+    double getRadius() const;
+
     friend ostream &operator<<(ostream &os, const Point &point);
+
+    void setRadius(double d,double direct);
 
 private:
     double x;
     double y;
+
+    double getAngle();
 };
 
 

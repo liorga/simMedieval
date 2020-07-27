@@ -254,6 +254,6 @@ void Model::start_working(const vector<std::string> &arg) {
     Farm &f = dynamic_cast<Farm&>(*findMapObjectByName(arg[2]));
     Castle &c = dynamic_cast<Castle&>(*findMapObjectByName(arg[3]));
 
-    p.start_working(f.getLocation(),c.getLocation());
+    p.start_working(f.getName(),c.getName());
 
 }

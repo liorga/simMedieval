@@ -82,6 +82,10 @@ double Point::distance(const Point &p) const {
     double newY = y-p.getX();
     return sqrt((newX*newX) + (newY*newY));
 }
+double to_radians(double theta_d)
+{
+    return theta_d * pi / 180.0;
+}
 
 double Point::angle(const Point &p) const {
     double phi =  atan2((p.getY()-this->y),(p.getX()-this->getX()));
@@ -89,4 +93,15 @@ double Point::angle(const Point &p) const {
         phi = 2.*pi +phi;
     return (phi *180/pi) -90;
 }
+
+void Point::setRadius(double d, double direct) {
+
+        this->x += d*cos(direct+90);
+        this->y += d*sin(direct+90);
+
+}
+
+
+
+
 //return both x and y

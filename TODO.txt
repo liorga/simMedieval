@@ -13,10 +13,10 @@ view Commands
     zoom - works
     pan - works
 Commands after an Agent Name
-    course
+    course - check.
     position
     attack
-    stop
+    stop - works.
     destination
-    start_working
+    start_working - check if working.. should be done.
    
