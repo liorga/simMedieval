@@ -90,14 +90,12 @@ double Point::angle(const Point &p) const {
     double phi =  atan2((p.getY()-this->y),(p.getX()-this->getX()));
     if (phi<0.)
         phi = 2.*pi +phi;
-    return (phi *180/pi) -90;
+    return (phi *180/pi);
 }
 
 void Point::setRadius(double d, double direct) {
-
-        this->x += d*cos(direct+90);
-        this->y += d*sin(direct+90);
-
+        this->x += d*cos(to_radians(direct));
+        this->y += d*sin(to_radians(direct));
 }
 
 

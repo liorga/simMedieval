@@ -52,8 +52,9 @@ public:
 
     Agent& operator++();
     Agent& operator--();
-
-
+	
+	
+	double getDirection();
 };
 
 

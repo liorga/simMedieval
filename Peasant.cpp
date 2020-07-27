@@ -99,7 +99,7 @@ void Peasant::print() {
         type = type.substr(1,type.length()-1);
         if (!VisitedFarm){
             if(this->location.distance(Model::getInstance().findMapObjectByName(farm)->getLocation()) != 0){
-                cout<< type <<" "<< this->getName()<< " at " << this->location << ", Heading to "<< farm<< ", speed " << speed << to_string(speed)<<" km/h"<<endl;
+                cout<< type <<" "<< this->getName()<< " at " << this->location << ", Heading to "<< farm<< ", speed "  << to_string(speed)<<" km/h"<<endl;
             }
             else{
                 cout<< type <<" "<< this->getName()<<",  Working at "<<farm<<endl;
@@ -107,7 +107,7 @@ void Peasant::print() {
         }
         else{
             if(this->location.distance(Model::getInstance().findMapObjectByName(castle)->getLocation()) != 0){
-                cout<< type <<" "<< this->getName()<< " at " << this->location << ", Heading to "<< castle<< ", speed " << speed << to_string(speed)<<" km/h"<<endl;
+                cout<< type <<" "<< this->getName()<< " at " << this->location << ", Heading to "<< castle<< ", speed " << to_string(speed)<<" km/h"<<endl;
             }
             else{
                 cout<< type <<" "<< this->getName()<<",  Working at "<<castle<<endl;

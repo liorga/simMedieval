@@ -15,7 +15,7 @@ int Agent::getHealth() const {
 }
 
 void Agent::setHealth(int health) {
-    Agent::health = health;
+    this->health = health;
 }
 
 const Agent::State Agent::getState() const {
@@ -23,7 +23,7 @@ const Agent::State Agent::getState() const {
 }
 
 void Agent::setState(State s) {
-    Agent::state = state;
+    this->state = s;
 }
 // remove Moving object and deal with consequences
 Agent::Agent( const string& name,Point location, int speed, int health) :SimObject(name, location), health(health),speed(speed) ,state(stopped){}
@@ -67,13 +67,17 @@ void Agent::setDirection(double direction) {
 
 }
 
+double Agent::getDirection() {
+	return this->direction < 90 ? this->direction + 270 : this->direction - 90 ;
+}
+
 void Agent::position(const Point &p) {
     dest = new Point(p);
 }
 
 void Agent::print() {
 
-    string stateArr[3] = {"Stopped", "Dead", "Moving in "+to_string(this->direction)+" deg, speed "+to_string(speed)+" km/h"};
+    string stateArr[3] = {"Stopped", "Dead", "Moving in "+to_string(this->getDirection())+" deg, speed "+to_string(speed)+" km/h"};
     string type = typeid(*this).name();
     type = type.substr(1,type.length()-1);
     cout << type << " " << this->getName() << " at " << this->location << "," << stateArr[getState()] <<endl;
@@ -94,6 +98,8 @@ void Agent::advance(const Point& dst){
         }
     }
 }
+
+
 
 
 
