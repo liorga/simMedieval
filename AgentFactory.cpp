@@ -24,7 +24,7 @@ AgentFactory& AgentFactory::getInstance()
 }
 shared_ptr<Agent> AgentFactory::createAgent(std::vector<std::string> &arg)
 {
-    if(arg[0].size()> 16 || arg[0] <1) throw Controller::ErrorException("Agent Name length is invalid.");
+    if(arg[0].size()> 16 || arg[0].size() <1) throw Controller::ErrorException("Agent Name length is invalid.");
     if(Model::getInstance().existInTheMap(arg[2]) ){
         string typeA = typeid(*(Model::getInstance().findMapObjectByName(arg[2]))).name();
         if(typeA.substr(1,typeA.length()-1) != "Castle")

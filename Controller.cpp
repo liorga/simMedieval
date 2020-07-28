@@ -76,8 +76,8 @@ void Controller::size(string& s)
     string::iterator b=s.begin();
     string::iterator e=s.end();
     for(;b!=e && isdigit(*b);temp+=*b,b++);
-    if(b!=e) throw ErrorException("bad size input no number has entered.");
-    if(stoi(temp)<6 || stoi(temp)>30 ) throw ErrorException("map size is illegal.");
+    if(b!=e) throw ErrorException("Invalid input.");
+    if(stoi(temp)<6 || stoi(temp)>30 ) throw ErrorException("size must be between 6 and 30");
     Model::getInstance().getView()._size(stoi(temp));
 }
 
@@ -87,23 +87,23 @@ void Controller::zoom(string& s)
     string::iterator b=s.begin();
     string::iterator e=s.end();
     for(;b!=e && isdigit(*b);temp+=*b,b++);
-    if(b!=e) throw ErrorException("bad zoom input no number has entered.");
-    if(stoi(temp)<0) throw ErrorException("map scale must be positive.");
+    if(b!=e) throw ErrorException("Invalid input.");
+    if(stoi(temp)<=0) throw ErrorException("map scale must be positive.");
     Model::getInstance().getView()._zoom(stoi(temp));
 }
 /****************************************************/
 void Controller::pan(vector<std::string>& temp)
-{
+{ //change the map origin to a specific point
     if(temp.size()!=3)  throw ErrorException("illegal number of arguments");;
     string x,y;
     string::iterator b=temp[1].begin();
     string::iterator e=temp[1].end();
     for(;b!=e && (isdigit(*b)||*b =='-');x+=*b,b++);
-    if(b!=e) throw ErrorException("bad pan input no x has entered.");
+    if(b!=e) throw ErrorException("X coordinate is invalid.");
     b=temp[2].begin();
     e=temp[2].end();
     for(;b!=e && (isdigit(*b)||*b =='-');y+=*b,b++);
-    if(b!=e) throw ErrorException("bad pan input no y has entered.");
+    if(b!=e) throw ErrorException("Y coordinate is invalid.");
     Point tmp(stoi(x),stoi(y));
     Model::getInstance().getView()._pan(tmp);
 }
@@ -115,20 +115,29 @@ void Controller::status()
 /****************************************************/
 void Controller::create(vector<string>& temp)
 {
-    if(Model::getInstance().existInTheMap(temp[1]))throw ErrorException("Agent is already exists");
+    if(Model::getInstance().existInTheMap(temp[1]))throw ErrorException("Agent already exists");
+    if(temp[2] != "Knight" && temp[2] != "Thug" && temp[2] != "Peasant")throw ErrorException(temp[2]+"is not an Agent type!");
     Model::getInstance().addCommand(Model::CREATE,temp);
 }
 /****************************************************/
 void Controller::attack(vector<string>& temp)
 {
-    if(temp.size()!=3 ||!Model::getInstance().existInTheMap(temp[2])|| ( (Model::getInstance().existInTheMap(temp[2]) && (typeid(*Model::getInstance().findMapObjectByName(temp[2])).name()!= typeid(Peasant).name()))))
-        throw ErrorException("illegal number of arguments");
-    if(typeid(*Model::getInstance().findMapObjectByName(temp[0])).name()== typeid(Thug).name())
-        Model::getInstance().addCommand(Model::ATTACK,temp);
-    else  throw ErrorException("Thug is not exist in the world.");
+    if(temp.size()!=3)throw ErrorException("illegal number of arguments");
+
+    if(!Model::getInstance().existInTheMap(temp[0]) ||typeid(*Model::getInstance().findMapObjectByName(temp[0])).name()!= typeid(Thug).name())
+        throw ErrorException("Thug "+ temp[0]+" does not exist, or is not a Thug at all.");
+
+    if(!Model::getInstance().existInTheMap(temp[2])|| ( (Model::getInstance().existInTheMap(temp[2]) && (typeid(*Model::getInstance().findMapObjectByName(temp[2])).name()!= typeid(Peasant).name()))))
+        throw ErrorException("Peasant " + temp[2] + " does not exist, or is not a Peasant at all.");
+
+    Model::getInstance().addCommand(Model::ATTACK,temp);
+
 }
 /****************************************************/
 void Controller::start_working(const vector<string>& temp) {
+    if(!Model::getInstance().existInTheMap(temp[0])) throw Controller::ErrorException(temp[0]+" does not exist");
+    if(!Model::getInstance().existInTheMap(temp[2])) throw Controller::ErrorException(temp[2]+" does not exist");
+    if(!Model::getInstance().existInTheMap(temp[3])) throw Controller::ErrorException(temp[3]+" does not exist");
     Model::getInstance().addCommand(Model::START_WORKING,temp);
 }
 /****************************************************/
@@ -144,7 +153,7 @@ void Controller::position(vector<string>& temp)
 /****************************************************/
 void Controller::destination(vector<string>& temp)
 {
-    if((!(Model::getInstance().existInTheMap(temp[2])))) throw ErrorException("Castle in not exist in the world");
+    if((!(Model::getInstance().existInTheMap(temp[2])))) throw ErrorException("Castle "+temp[2]+" does not exist.");
     Model::getInstance().addCommand(Model::DESTINATION,temp);
 }
 /****************************************************/
