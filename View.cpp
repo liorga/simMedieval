@@ -76,7 +76,7 @@ void View::_show(std::ostream& out)//show the map in the ostream
     for(int y=maxY,line=0;y>=map_origin.getY();y-=map_scale,line++){
 	    (!((window_size-line-1)%3))? out<<setw(4)<<y<<" " : out<<setw(5)<<" ";//print the line number or space
         for(int x=map_origin.getX();x<=maxX;x+=map_scale){
-            if((it!=map_objects.end()) && ((*it)->getLocation()==Point(x,y))){//if there is any object in this point
+            if((it!=map_objects.end()) && ((*it)->getLocation() == Point(x,y))){//if there is any object in this point
                 out<<(*it)->getName().substr(0,2);
                 it++;
             }

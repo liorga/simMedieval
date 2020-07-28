@@ -31,7 +31,7 @@ public:
     void addMapObjects(const std::vector<std::shared_ptr<SimObject>>&);
     uint getTime() const;
     std::shared_ptr<SimObject> findMapObjectByName(std::string) const;//return a pointer to map object or null if this object dose not exist
-    Castle& getClosestCastle(const Knight&) const;
+    const Castle& getClosestCastle(Knight& k);
     bool existInTheMap(std::string) const;//receive a of an object and return true if it is in the map
     void addCommand(COMMANDS,const std::vector<std::string>& arg);//add command to the queue, the arguments are already cheacked and confirmed
     View& getView();

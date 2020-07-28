@@ -26,7 +26,6 @@ void Model::addToMap(const std::shared_ptr<SimObject>& p)//add map object use in
 {
     string type = typeid(*p).name();
     type = type.substr(1,type.length()-1);
-    cout << type << endl;
     mapObjects.emplace(type,p);
     nameANDtype.emplace(p->getName(),type);
 }
@@ -185,7 +184,7 @@ unsigned int Model::getTime() const
     return time;
 }
 
-Castle& Model::getClosestCastle(const Knight &k) const{
+const Castle& Model::getClosestCastle(Knight &k){
     pair<shared_ptr<SimObject>,float> minDis(shared_ptr<SimObject>(),UINT_MAX);
     auto tmp=mapObjects.find("Castle");
     while(tmp!=mapObjects.end())
