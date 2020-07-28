@@ -5,8 +5,8 @@ need to change errors massages to be more to the error
 Model Commands
     exit - works
     go - works
-    status - check printings - too many line spaces
-    create - check knight creation
+    status - check first space printed in new line.
+    create - works
 
 view Commands
     show - works
@@ -15,10 +15,10 @@ view Commands
     zoom - works
     pan - works
 Commands after an Agent Name
-    course - check.
+    course - works.
     position
     attack
     stop - works.
-    destination
-    start_working - check if working.. should be done.
+    destination - works.
+    start_working - check castle arrival at end of work.
    
