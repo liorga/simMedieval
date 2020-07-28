@@ -4,6 +4,7 @@
 
 #include "Controller.h"
 #include "Peasant.h"
+#include "Thug.h"
 #include "InputHandler.h"
 
 using namespace std;
@@ -119,9 +120,9 @@ void Controller::create(vector<string>& temp)
 /****************************************************/
 void Controller::attack(vector<string>& temp)
 {
-    if(temp.size()!=3 ||!Model::getInstance().existInTheMap(temp[2])|| ( (Model::getInstance().existInTheMap(temp[2]) && (typeid(Model::getInstance().findMapObjectByName(temp[2])).name()!="Peasant"))))
+    if(temp.size()!=3 ||!Model::getInstance().existInTheMap(temp[2])|| ( (Model::getInstance().existInTheMap(temp[2]) && (typeid(*Model::getInstance().findMapObjectByName(temp[2])).name()!= typeid(Peasant).name()))))
         throw IllegalCommandError();
-    if(typeid(*Model::getInstance().findMapObjectByName(temp[0])).name()=="Thug")
+    if(typeid(*Model::getInstance().findMapObjectByName(temp[0])).name()== typeid(Thug).name())
         Model::getInstance().addCommand(Model::ATTACK,temp);
     else  throw IllegalCommandError();
 }

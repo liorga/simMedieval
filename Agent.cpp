@@ -76,21 +76,24 @@ double Agent::getDirection() {
 void Agent::position(const Point &p) {
     dest = new Point(p);
     setState(pos);
+    setDirection(this->location.angle(*dest));
 }
 
 void Agent::print() {
 
     string stateArr[4] = {"Stopped", "Dead", "Moving in "+to_string(this->getDirection())+" deg, speed "+to_string(speed)+" km/h",
-                          "Heading to"+'('+ to_string(this->dest->getX())+", "+to_string(this->dest->getY())+") , speed "+to_string(speed)+ " km/h"};
+                          "Heading to ("+ to_string(this->dest->getX())+", "+to_string(this->dest->getY())+") , speed "+to_string(speed)+ " km/h"};
     string type = typeid(*this).name();
     type = type.substr(1,type.length()-1);
-    cout << type << " " << this->getName() << " at " << this->location << "," << stateArr[getState()];
+    cout << setprecision(2) << type << " " << this->getName() << " at " << this->location << "," << stateArr[getState()] << " " << to_string(health);
 
 }
 
 void Agent::update() {
-    if (state == Moving &&dest != nullptr){
-        advance(*dest);
+    if (state == Moving){
+    	this->location.setRadius(speed,this->direction);
+    } else if(dest && state == pos){
+    	advance(*dest);
     }
 }
 void Agent::advance(const Point& dst){

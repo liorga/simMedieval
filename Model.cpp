@@ -217,6 +217,7 @@ View& Model::getView()
 void Model::_go()
 {
     time++;
+    
     while(!commands.empty())
     {
         auto pair = commands.front();

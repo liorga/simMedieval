@@ -16,8 +16,8 @@ view Commands
     pan - works
 Commands after an Agent Name
     course - works.
-    position
-    attack
+    position - works.
+    attack - works (check for successful attack situation)
     stop - works.
     destination - works.
     start_working - works.
