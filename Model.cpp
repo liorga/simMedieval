@@ -184,17 +184,20 @@ unsigned int Model::getTime() const
     return time;
 }
 
-const Castle& Model::getClosestCastle(Knight &k){
+Castle & Model::getClosestCastle(const string &k){
     pair<shared_ptr<SimObject>,float> minDis(shared_ptr<SimObject>(),UINT_MAX);
     auto tmp=mapObjects.find("Castle");
+    Knight& sir = dynamic_cast<Knight&>(*findMapObjectByName(k));
+    vector<string> visited = sir.getVisitedCastles();
     while(tmp!=mapObjects.end())
     {
-        vector<string> visited = k.getVisitedCastles();
+
+
         if (find(visited.begin(),visited.end(),tmp->second->getName())== visited.end()) {
             continue;
         }
         Point tmp_p=(tmp->second->getLocation());
-        double dist = k.getLocation().distance(tmp_p);
+        double dist = sir.getLocation().distance(tmp_p);
         if(dist<minDis.second){
             minDis.first=(tmp->second);
             minDis.second=dist;

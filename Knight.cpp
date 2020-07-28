@@ -18,7 +18,7 @@ void Knight::update() {
         if(!location.distance(Model::getInstance().findMapObjectByName(dst)->getLocation())){
             castle = dst;
             visitedCastles.push_back(castle);
-            dst = Model::getInstance().getClosestCastle(*this).getName();
+            dst = Model::getInstance().getClosestCastle(this->name).getName();
             setDirection(location.angle(Model::getInstance().findMapObjectByName(dst)->getLocation()));
 
         }
