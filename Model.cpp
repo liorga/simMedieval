@@ -109,7 +109,7 @@ void Model::destination(const vector<string>& arg)//only a Knight -> arg.size()=
         return;
     }
     Knight &sir=dynamic_cast<Knight&>(*findMapObjectByName(arg[0]));
-    sir.position(findMapObjectByName(arg[2])->getLocation());
+    sir.destination(arg[2]);
 }
 
 void Model::stopped(const string& arg){
@@ -185,32 +185,43 @@ unsigned int Model::getTime() const
 }
 
 Castle & Model::getClosestCastle(const string &k){
-    pair<shared_ptr<SimObject>,float> minDis(shared_ptr<SimObject>(),UINT_MAX);
-    auto tmp=mapObjects.find("Castle");
+    pair<shared_ptr<SimObject>,double> minDis(shared_ptr<SimObject>(),UINT_MAX);
+
     Knight& sir = dynamic_cast<Knight&>(*findMapObjectByName(k));
-    vector<string> visited = sir.getVisitedCastles();
+    auto saver = mapObjects.find("Castle");
+    auto tmp=saver;
     while(tmp!=mapObjects.end())
     {
+        //check if All Castles are visited by the knight
+        if(mapObjects.count("Castle") == sir.getVisitedCastles().size()){
+            sir.setTour(true);
+            return dynamic_cast<Castle&>(*findMapObjectByName(sir.getVisitedCastles()[0]));
 
+        }
 
-        if (find(visited.begin(),visited.end(),tmp->second->getName())== visited.end()) {
+        //check if found castle is already visited by this knight.
+        else if (find(sir.getVisitedCastles().begin(),sir.getVisitedCastles().end(),tmp->second->getName())!= sir.getVisitedCastles().end()) {
+            tmp++;
+            cout<<"stuck here ";
             continue;
         }
         Point tmp_p=(tmp->second->getLocation());
         double dist = sir.getLocation().distance(tmp_p);
+        //check distance
         if(dist<minDis.second){
             minDis.first=(tmp->second);
             minDis.second=dist;
         }
         tmp++;
     }
+
     return dynamic_cast<Castle&>(*minDis.first);
 }
 
 
 
 
-void Model::addCommand(Model::COMMANDS c,const vector<string>& arg)//add commend to the queue
+void Model::addCommand(Model::COMMANDS c,const vector<string>& arg)//add command to the queue
 //assuming the command and all the arguments are ok
 {
     commands.emplace(pair<Model::COMMANDS,vector<string>>(c,arg));
