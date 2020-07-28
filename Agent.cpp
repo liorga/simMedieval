@@ -7,7 +7,7 @@
 
 
 Agent::~Agent() {
-
+	delete dest;
 }
 
 int Agent::getHealth() const {

@@ -92,5 +92,12 @@ void View::_show(std::ostream& out)//show the map in the ostream
 }
 
 View::~View() {
-
+	
+	for(shared_ptr<SimObject> p : map_objects){
+		if(p.use_count()){delete p.get();}
+	}
+	
+	for(shared_ptr<SimObject> p : all_Objects){
+		if(p.use_count()){delete p.get();}
+	}
 }

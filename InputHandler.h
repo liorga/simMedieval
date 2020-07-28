@@ -34,6 +34,9 @@ public:
         }
     };
 
+private:
+	vector<shared_ptr<SimObject>>* farms;
+
 };
 
 

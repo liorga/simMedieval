@@ -116,7 +116,7 @@ void Controller::status()
 void Controller::create(vector<string>& temp)
 {
     if(Model::getInstance().existInTheMap(temp[1]))throw ErrorException("Agent already exists");
-    if(temp[2] != "Knight" && temp[2] != "Thug" && temp[2] != "Peasant")throw ErrorException(temp[2]+"is not an Agent type!");
+    if(temp[1] != "Knight" && temp[1] != "Thug" && temp[1] != "Peasant")throw ErrorException(temp[1]+"is not an Agent type!");
     Model::getInstance().addCommand(Model::CREATE,temp);
 }
 /****************************************************/

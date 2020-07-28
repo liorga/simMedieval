@@ -160,7 +160,9 @@ Model& Model::getInstance()
     return model;
 }
 
-Model::~Model(){}
+Model::~Model(){
+
+}
 
 void Model::addMapObjects(const vector<shared_ptr<SimObject>>& objects)
 {
@@ -289,4 +291,14 @@ void Model::start_working(const vector<std::string> &arg) {
 
     p.start_working(f.getName(),c.getName());
 
+}
+
+void Model::clear() {
+	nameANDtype.clear();
+	for(pair<string,shared_ptr<SimObject>> p : mapObjects){
+		delete p.second.get();
+	}
+	while (!commands.empty()){
+		commands.pop();
+	}
 }

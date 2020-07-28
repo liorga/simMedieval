@@ -37,6 +37,7 @@ public:
     View& getView();
     void _go();//go over the commands queue and apply all the commands
     void status() const;
+	void clear();
 
 private:
     std::map<std::string,std::string> nameANDtype;//name and type of all the objects in the map
@@ -59,6 +60,7 @@ private:
     bool attack(const std::vector<std::string>& arg);//return true if the attack succeeded
     void stopped(const std::string& arg);
     void start_working(const std::vector<std::string>& arg);
+   
 
 };
 
