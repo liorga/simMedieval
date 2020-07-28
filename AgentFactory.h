@@ -1,5 +1,5 @@
 //
-// Created by evyat on 7/8/2020.
+// Created by Evyatar Bhalker & Lior Gal on 7/6/2020.
 //
 
 #ifndef EX3_SIMMEDIEVAL_AGENTFACTORY_H

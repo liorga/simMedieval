@@ -1,5 +1,5 @@
 //
-// Created by lior on 04/07/2020.
+// Created by Evyatar Bhalker & Lior Gal on 7/6/2020.
 //
 
 #ifndef EX3_SIMMEDIEVAL_FARM_H

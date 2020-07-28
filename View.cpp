@@ -1,5 +1,5 @@
 //
-// Created by lior on 07/07/2020.
+// Created by Evyatar Bhalker & Lior Gal on 7/6/2020.
 //
 
 #include "View.h"
