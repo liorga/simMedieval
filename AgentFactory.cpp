@@ -24,10 +24,11 @@ AgentFactory& AgentFactory::getInstance()
 }
 shared_ptr<Agent> AgentFactory::createAgent(std::vector<std::string> &arg)
 {
+    if(arg[0].size()> 16 || arg[0] <1) throw Controller::ErrorException("Agent Name length is invalid.");
     if(Model::getInstance().existInTheMap(arg[2]) ){
         string typeA = typeid(*(Model::getInstance().findMapObjectByName(arg[2]))).name();
         if(typeA.substr(1,typeA.length()-1) != "Castle")
-            throw Controller::IllegalCommandError();
+            throw Controller::ErrorException(arg[2]+" is not a Castle");
     }  //  or anything else that represents an error
     const string type=arg[1];// the arg vector look like this [Agent name, Agent type, location]
     if(type=="Peasant")//the second argument in the vector is a

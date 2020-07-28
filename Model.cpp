@@ -75,9 +75,10 @@ void Model::create(vector<string>& arg)//the vector look like this [name of agen
 {
     addToMap(factory.createAgent(arg));
 }
-void Model::course(const vector<string>& arg)//if it is a  Peasant-> arg.size()=3 (name,course,angle) and it is a Thug -> arg.size()=4 (name,course,angle,speed)
+void Model::course(const vector<string>& arg)//if it is a  Peasant/Knight-> arg.size()=3 (name,course,angle) and it is a Thug -> arg.size()=4 (name,course,angle,speed)
 {
-    float direction,speed;
+    if(!existInTheMap(arg[0])) throw Controller::ErrorException(arg[0]+" does not exist");
+    double direction,speed;
     Agent &gent=dynamic_cast<Agent&>(*findMapObjectByName(arg[0]));
     stringstream stream(arg[2]);
     stream>>direction;
@@ -85,40 +86,43 @@ void Model::course(const vector<string>& arg)//if it is a  Peasant-> arg.size()=
     if(arg.size()==4){
         stringstream temp(arg[3]);
         temp>>speed;
+        if (speed<=0) throw Controller::ErrorException("speed must be a positive value.");
         gent.setSpeed(speed);
     }
     gent.course();
 }
 void Model::position(const vector<string>& arg)//if it is a Knight/Peasant -> arg.size()=3 (name,position,Point) and it is a Thug -> arg.size()=4 (name,position,Point,speed)
 {
-    float speed;
+    if(!existInTheMap(arg[0])) throw Controller::ErrorException(arg[0]+" does not exist.");
+    double speed;
     Agent &gent=dynamic_cast<Agent&>(*findMapObjectByName(arg[0]));
 
     Point p(Point::parseX(arg[2]),Point::parseY(arg[2]));
     if(arg.size()==4){
         stringstream stream(arg[3]);
         stream>>speed;
+        if(speed <=0) throw Controller::ErrorException("speed cannot be non-positive.");
         gent.setSpeed(speed);
     }
     gent.position(p);
 }
 void Model::destination(const vector<string>& arg)//only a Knight -> arg.size()=3 (name,destination,castle name)
 {
-    if(!existInTheMap(arg[0]) || !existInTheMap(arg[2])){
-        throw Controller::IllegalCommandError();
-        return;
-    }
+    if(!existInTheMap(arg[0])) throw Controller::ErrorException("Knight" + arg[0] +" does not exist");
+    if(!existInTheMap(arg[2])) throw Controller::ErrorException("Castle "+ arg[2] +" does not exist");
     Knight &sir=dynamic_cast<Knight&>(*findMapObjectByName(arg[0]));
     sir.destination(arg[2]);
 }
 
 void Model::stopped(const string& arg){
+    if(!existInTheMap(arg)) throw Controller::ErrorException(arg+" does not exist");
     Agent &gent=dynamic_cast<Agent&>(*findMapObjectByName(arg));
     gent.stop();
 }
 
 bool Model::SuccessfulAttack(const Point& p) const//return true if there is no knights in 10km radius from the point
 {
+
     auto knights = mapObjects.find("Knight");//return all the Knights in the map
     while(knights!=mapObjects.end())
     {
@@ -133,6 +137,8 @@ bool Model::SuccessfulAttack(const Point& p) const//return true if there is no k
 
 bool Model::attack(const vector<string>& arg)// arg=[Thug name,"attack",Peasant name]
 {
+    if(!existInTheMap(arg[0])) throw Controller::ErrorException("Thug" +arg[0]+" does not exist");
+    if(!existInTheMap(arg[2])) throw Controller::ErrorException("Peasant"+arg[2]+" does not exist");
     Thug &t=dynamic_cast<Thug&>(*findMapObjectByName(arg[0]));
     Peasant &p=dynamic_cast<Peasant&>(*findMapObjectByName(arg[2]));
     t.stop();
@@ -202,7 +208,6 @@ Castle & Model::getClosestCastle(const string &k){
         //check if found castle is already visited by this knight.
         else if (find(sir.getVisitedCastles().begin(),sir.getVisitedCastles().end(),tmp->second->getName())!= sir.getVisitedCastles().end()) {
             tmp++;
-            cout<<"stuck here ";
             continue;
         }
         Point tmp_p=(tmp->second->getLocation());
@@ -222,7 +227,7 @@ Castle & Model::getClosestCastle(const string &k){
 
 
 void Model::addCommand(Model::COMMANDS c,const vector<string>& arg)//add command to the queue
-//assuming the command and all the arguments are ok
+
 {
     commands.emplace(pair<Model::COMMANDS,vector<string>>(c,arg));
 }
@@ -274,6 +279,10 @@ void Model::_go()
 }
 
 void Model::start_working(const vector<std::string> &arg) {
+    if(!existInTheMap(arg[0])) throw Controller::ErrorException(arg[0]+" does not exist");
+    if(!existInTheMap(arg[2])) throw Controller::ErrorException(arg[2]+" does not exist");
+    if(!existInTheMap(arg[3])) throw Controller::ErrorException(arg[3]+" does not exist");
+
     Peasant &p=dynamic_cast<Peasant&>(*findMapObjectByName(arg[0])); //get the objects by name
     Farm &f = dynamic_cast<Farm&>(*findMapObjectByName(arg[2]));
     Castle &c = dynamic_cast<Castle&>(*findMapObjectByName(arg[3]));
