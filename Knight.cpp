@@ -12,7 +12,7 @@ Knight::~Knight() {
 }
 
 void Knight::update() {
-    if(state== Moving){
+    if(state== desti){
         if(!location.distance(Model::getInstance().findMapObjectByName(dst)->getLocation())){
             castle = dst;
             dst = Model::getInstance().getClosestCastle(location).getName();
@@ -29,7 +29,7 @@ void Knight::update() {
 void Knight::print() {
     string type = typeid(*this).name();
     type = type.substr(1,type.length()-1);
-    if(state == Moving) {
+    if(state == desti) {
         if (!this->getLocation().distance(Model::getInstance().findMapObjectByName(castle)->getLocation())) {
             cout << type << " " << this->getName() << " at " << castle << ", Heading to " << dst << ", speed "
                  << to_string(speed) << " km/h";
@@ -45,6 +45,7 @@ void Knight::print() {
 
 void Knight::destination(const string &SiteName) {
     dst = SiteName;
+    setState(desti);
 }
 
 

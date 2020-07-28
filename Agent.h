@@ -19,7 +19,7 @@
 
 class Agent : public SimObject {
 protected:
-    enum State{stopped, dead, Moving, Working};
+    enum State{stopped, dead, Moving, pos, desti,Working};
     uint health;
     State state;
     double speed;

@@ -44,6 +44,7 @@ void Peasant::update() {
             if(this->location.distance(c.getLocation()) == 0){ //arrived at castle
                 c.setInventory(c.getInventory()+this->getBag());
                 this->setBag(0);
+                ++*this;
                 setState(stopped);
                 VisitedFarm = false;
             }
