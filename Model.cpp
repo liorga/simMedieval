@@ -48,12 +48,17 @@ void Model::updateView()
 {
     for(auto tmp:mapObjects)
     {
-        if(typeid(*tmp.second)== typeid(Castle)||
-            typeid(*tmp.second) == typeid(Farm))
+        if(typeid(*tmp.second) == typeid(Castle)) {
             continue;
+        }
+        else if(typeid(*tmp.second) == typeid(Farm)){
+            Farm& f=dynamic_cast<Farm&>(*tmp.second);
+            f.update();
+            continue;
+        }
         //else is a type an Agent - should we add a vector of Agents ans seperate it from the structures?
         Agent& v=dynamic_cast<Agent&>(*tmp.second);
-        v.update(); // need to make adjustments
+        v.update();
     }
     view.push(copyAllMapObject());
 }
@@ -118,7 +123,7 @@ bool Model::SuccessfulAttack(const Point& p) const//return true if there is no k
     while(knights!=mapObjects.end())
     {
         Point tmp_p=(knights->second->getLocation());
-        if(p.distance(tmp_p)<=0.1) // might change according to scale
+        if(p.distance(tmp_p)<=2.5) // might change according to scale
             return false;
         //how to iterate through all the knights in map/the area?
     }
@@ -137,7 +142,7 @@ bool Model::attack(const vector<string>& arg)// arg=[Thug name,"attack",Peasant 
         return false;
     }
     ++t;
-    p.attack(); //change attack implementation to ONLY INVOLVE INVENTORY
+    p.attack();
     return true;
 }
 

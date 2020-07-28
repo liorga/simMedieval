@@ -18,6 +18,7 @@ public:
     void setRate(uint rate);
 
     void update() override;
+    void operator++();
 
 private:
     uint rate;

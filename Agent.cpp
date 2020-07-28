@@ -26,7 +26,9 @@ void Agent::setState(State s) {
     this->state = s;
 }
 // remove Moving object and deal with consequences
-Agent::Agent( const string& name,Point location, int speed, int health) :SimObject(name, location), health(health),speed(speed) ,state(stopped){}
+Agent::Agent( const string& name,Point location, int speed, int health) :SimObject(name, location), health(health),speed(speed) ,state(stopped){
+    dest = new Point();
+}
 
 
 
@@ -79,7 +81,7 @@ void Agent::position(const Point &p) {
 void Agent::print() {
 
     string stateArr[4] = {"Stopped", "Dead", "Moving in "+to_string(this->getDirection())+" deg, speed "+to_string(speed)+" km/h",
-                          "Heading to "+'('+ to_string(this->dest->getX())+", "+to_string(this->dest->getY())+") , speed "+to_string(speed)+ " km/h"};
+                          "Heading to"+'('+ to_string(this->dest->getX())+", "+to_string(this->dest->getY())+") , speed "+to_string(speed)+ " km/h"};
     string type = typeid(*this).name();
     type = type.substr(1,type.length()-1);
     cout << type << " " << this->getName() << " at " << this->location << "," << stateArr[getState()];

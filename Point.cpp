@@ -77,8 +77,8 @@ ostream &operator<<(ostream &os, const Point &point) {
 }
 
 double Point::distance(const Point &p) const {
-    double newX= x-p.getX();
-    double newY = y-p.getX();
+    double newX= p.getX()-x;
+    double newY = p.getY()-y;
     return sqrt((newX*newX) + (newY*newY));
 }
 double to_radians(double theta_d)

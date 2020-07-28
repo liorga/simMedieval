@@ -29,6 +29,7 @@ void Knight::update() {
 void Knight::print() {
     string type = typeid(*this).name();
     type = type.substr(1,type.length()-1);
+
     if(state == desti) {
         if (!this->getLocation().distance(Model::getInstance().findMapObjectByName(castle)->getLocation())) {
             cout << type << " " << this->getName() << " at " << castle << ", Heading to " << dst << ", speed "

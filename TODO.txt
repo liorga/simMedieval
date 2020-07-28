@@ -20,5 +20,5 @@ Commands after an Agent Name
     attack
     stop - works.
     destination - works.
-    start_working - check castle arrival at end of work.
+    start_working - works.
    

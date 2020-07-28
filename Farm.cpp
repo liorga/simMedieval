@@ -19,5 +19,10 @@ void Farm::setRate(uint rate) {
 }
 
 void Farm::update() {
+    this->inventory+=rate;
+
+}
+
+void Farm::operator++() {
 
 }
