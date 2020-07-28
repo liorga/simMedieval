@@ -169,7 +169,7 @@ Display size: 15, scale: 5.00, origin: (-20.00, -20.00)
 
 
 Time 0: Enter command: size 1
-ERROR: New map size is too small.
+ too small.
 
 Time 0: Enter command: size 40
 ERROR: New map size is too big.

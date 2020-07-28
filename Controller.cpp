@@ -76,7 +76,7 @@ void Controller::size(string& s)
     string::iterator e=s.end();
     for(;b!=e && isdigit(*b);temp+=*b,b++);
     if(b!=e) throw IllegalCommandError();
-    if(stoi(temp)<6 || stoi(temp)>30 ) throw IllegalCommandError();
+    if(stoi(temp)<6 || stoi(temp)>30 ) throw IllegalCommandError(sizeErr);
     Model::getInstance().getView()._size(stoi(temp));
 }
 
@@ -87,7 +87,7 @@ void Controller::zoom(string& s)
     string::iterator e=s.end();
     for(;b!=e && isdigit(*b);temp+=*b,b++);
     if(b!=e) throw IllegalCommandError();
-    if(stoi(temp)<0) throw IllegalCommandError();
+    if(stoi(temp)<0) throw IllegalCommandError(negativeErr);
     Model::getInstance().getView()._zoom(stoi(temp));
 }
 /****************************************************/
@@ -121,7 +121,7 @@ void Controller::create(vector<string>& temp)
 void Controller::attack(vector<string>& temp)
 {
     if(temp.size()!=3 ||!Model::getInstance().existInTheMap(temp[2])|| ( (Model::getInstance().existInTheMap(temp[2]) && (typeid(*Model::getInstance().findMapObjectByName(temp[2])).name()!= typeid(Peasant).name()))))
-        throw IllegalCommandError();
+        throw IllegalCommandError(argsNumError);
     if(typeid(*Model::getInstance().findMapObjectByName(temp[0])).name()== typeid(Thug).name())
         Model::getInstance().addCommand(Model::ATTACK,temp);
     else  throw IllegalCommandError();
@@ -163,14 +163,14 @@ void Controller::Init(int argc, char *argv[])
         e.PrintError();
         exit(1);
     }
-
+    
     Run();
 
 }
 
 
 /****************************************************/
-void Controller::Run()
+void Controller::Run() //running the simulation
 {
     vector<string> line;
     while (true){
@@ -207,6 +207,7 @@ void Controller::Run()
                     zoom(line[1]);
                     continue;
                 }
+                
                 throw  IllegalCommandError();
             }
             if(line[0]=="pan") {

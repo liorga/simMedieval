@@ -1,6 +1,8 @@
 go through Controller.Run(), and make all of the options work.
 
 need to change errors massages to be more to the error
+add an exception to name that doesnt exists
+
 
 Model Commands
     exit - works

@@ -52,28 +52,22 @@ public:
 /*Functions*/
     void Init(int argc, char *argv[]);
 //exception//
-class NumOfArgumentsError : public std::exception{
-    public:
-       NumOfArgumentsError() {}
-        virtual void PrintError(){
-            std::cout <<"Error: Invalid number of arguments"<<std::endl;
-        }
-    };
 
-class IllegalCommandError : public std::exception{
+
+class ErrorException : public std::exception{
     public:
-        IllegalCommandError() {}
-        virtual void PrintError(){
-            std::cout <<"Error: illegal Command."<<std::endl;
+	ErrorException(const string& err) : error(err){
+        	PrintError();
         }
-    };
-class NotInTheModelError: public std::exception{
-    public:
-        NotInTheModelError() {}
+
         virtual void PrintError(){
-            std::cout <<"Error: this object is not in the simulation"<<std::endl;
+        	cout << "Error: " << error << endl;
         }
-    };
+
+private:
+	string error;
+};
+
 
     void start_working(const vector<string>& vector);
 };
