@@ -5,7 +5,9 @@
 #include "Knight.h"
 
 Knight::Knight(const string& name,const Point& location,const string & cn, int speed, int health) : Agent(name,location, speed,
-                                                                                         health), castle(cn), dst() {}
+                                                                                         health), castle(cn), dst() ,visitedCastles(){
+    visitedCastles.push_back(cn);
+}
 
 Knight::~Knight() {
 
@@ -15,7 +17,8 @@ void Knight::update() {
     if(state== desti){
         if(!location.distance(Model::getInstance().findMapObjectByName(dst)->getLocation())){
             castle = dst;
-            dst = Model::getInstance().getClosestCastle(location).getName();
+            visitedCastles.push_back(castle);
+            dst = Model::getInstance().getClosestCastle(*this).getName();
             setDirection(location.angle(Model::getInstance().findMapObjectByName(dst)->getLocation()));
 
         }
@@ -47,6 +50,10 @@ void Knight::print() {
 void Knight::destination(const string &SiteName) {
     dst = SiteName;
     setState(desti);
+}
+
+const vector<string> &Knight::getVisitedCastles() const {
+    return visitedCastles;
 }
 
 

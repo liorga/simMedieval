@@ -14,6 +14,7 @@
 #include "Farm.h"
 #include "Castle.h"
 #include "AgentFactory.h"
+#include "Knight.h"
 
 typedef unsigned int uint;
 
@@ -30,7 +31,7 @@ public:
     void addMapObjects(const std::vector<std::shared_ptr<SimObject>>&);
     uint getTime() const;
     std::shared_ptr<SimObject> findMapObjectByName(std::string) const;//return a pointer to map object or null if this object dose not exist
-    Castle& getClosestCastle(const Point&) const;
+    Castle& getClosestCastle(const Knight&) const;
     bool existInTheMap(std::string) const;//receive a of an object and return true if it is in the map
     void addCommand(COMMANDS,const std::vector<std::string>& arg);//add command to the queue, the arguments are already cheacked and confirmed
     View& getView();
@@ -51,8 +52,8 @@ private:
     std::string getMapObjectType(const std::shared_ptr<SimObject>&) const;//return the string of that map object's name
     std::vector<std::shared_ptr<SimObject>> copyAllMapObject();
     void updateView();
-    void create(std::vector<std::string>&);//the vector look like this [name of vehicle,type of vehicle,point or warehose to start from]
-    void course(const std::vector<std::string>&);//if it is a TrooperState -> arg.size()=3 (curse,name,angle) and it is a Chopper -> arg.size()=4 (curse,name,angle,speed)
+    void create(std::vector<std::string>&);//the vector look like this [name of Agent,type of Agent,point or Site to start from]
+    void course(const std::vector<std::string>&);//if it is a Knight/Peasant -> arg.size()=3 (curse,name,angle) and it is a Thug -> arg.size()=4 (curse,name,angle,speed)
     void position(const std::vector<std::string>&);
     void destination(const std::vector<std::string>& arg);
     bool attack(const std::vector<std::string>& arg);//return true if the attack succeeded

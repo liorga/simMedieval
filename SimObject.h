@@ -18,7 +18,7 @@ public:
     virtual ~SimObject();
 
     const string& getName() const;
-    Point& getLocation();
+    const Point getLocation()const;
     void setLocation(const Point& p);
     virtual void update() = 0;
     virtual void broadcast_current_state();

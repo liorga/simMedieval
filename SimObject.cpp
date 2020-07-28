@@ -27,7 +27,7 @@ void SimObject::setLocation(const Point &p) {
     location = p;
 }
 
-Point &SimObject::getLocation() {
+const Point SimObject::getLocation() const{
     return location;
 }
 

@@ -16,8 +16,11 @@ public:
     void update() override;
     void print() override;
     void destination(const string& SiteName) override;
+    const vector<string> & getVisitedCastles() const;
+
 
 private:
+    vector<string> visitedCastles;
     string castle;
     string dst;
 };

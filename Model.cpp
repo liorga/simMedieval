@@ -14,6 +14,7 @@
 #include "Peasant.h"
 #include "Knight.h"
 #include "Controller.h"
+#include <algorithm>
 #include <cmath>
 using namespace std;
 /***********************************************************************private methods ******************************************************************************/
@@ -184,13 +185,17 @@ unsigned int Model::getTime() const
     return time;
 }
 
-Castle& Model::getClosestCastle(const Point &p) const{
+Castle& Model::getClosestCastle(const Knight &k) const{
     pair<shared_ptr<SimObject>,float> minDis(shared_ptr<SimObject>(),UINT_MAX);
     auto tmp=mapObjects.find("Castle");
     while(tmp!=mapObjects.end())
     {
+        vector<string> visited = k.getVisitedCastles();
+        if (find(visited.begin(),visited.end(),tmp->second->getName())== visited.end()) {
+            continue;
+        }
         Point tmp_p=(tmp->second->getLocation());
-        double dist = p.distance(tmp_p);
+        double dist = k.getLocation().distance(tmp_p);
         if(dist<minDis.second){
             minDis.first=(tmp->second);
             minDis.second=dist;
