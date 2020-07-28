@@ -21,9 +21,9 @@ class Agent : public SimObject {
 protected:
     enum State{stopped, dead, Moving, pos, desti,Working};
     uint health;
-    State state;
     double speed;
-    double direction;
+	State state;
+	double direction;
     Point* dest;
 
 public:

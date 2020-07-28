@@ -21,10 +21,10 @@ public:
 
 
 private:
-    vector<string> visitedCastles;
     string castle;
-    string dst;
-    bool DoneTour;
+	string dst;
+	vector<string> visitedCastles;
+	bool DoneTour;
 };
 
 

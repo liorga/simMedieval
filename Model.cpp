@@ -221,7 +221,6 @@ Castle & Model::getClosestCastle(const string &k){
         }
         tmp++;
     }
-
     return dynamic_cast<Castle&>(*minDis.first);
 }
 

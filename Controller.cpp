@@ -257,7 +257,7 @@ void Controller::Run() //running the simulation
         }
         catch (ErrorException& e)
         {
-            e.PrintError();
+            e.what();
         }
     }
 }

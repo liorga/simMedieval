@@ -4,7 +4,9 @@
 
 #include "Agent.h"
 
-
+Agent::Agent( const string& name,Point location, int speed, int health) :SimObject(name, location), health(health),speed(speed) ,state(stopped){
+	dest = new Point();
+}
 
 Agent::~Agent() {
 	delete dest;
@@ -25,10 +27,8 @@ const Agent::State Agent::getState() const {
 void Agent::setState(State s) {
     this->state = s;
 }
-// remove Moving object and deal with consequences
-Agent::Agent( const string& name,Point location, int speed, int health) :SimObject(name, location), health(health),speed(speed) ,state(stopped){
-    dest = new Point();
-}
+
+
 
 
 

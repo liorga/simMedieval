@@ -26,9 +26,9 @@ public:
 
 
 private:
-    string farm;
-    string castle;
-    bool VisitedFarm;
+	bool VisitedFarm;
+	string farm;
+	string castle;
     uint bag; // used to know how much is the peasant inventory(maximum 5 on his back).
     void setFarm(const string &point);
 
