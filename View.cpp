@@ -55,7 +55,6 @@ void View::_pan(const Point& p)//change map origin
 }
 void View::_show(std::ostream& out)//show the map in the ostream
 {
-    //_pan(Point(0,0));
     map_objects.clear();
     subset();
     fixMapObjects();
@@ -70,7 +69,8 @@ void View::_show(std::ostream& out)//show the map in the ostream
     });
     map_objects.resize(distance(map_objects.begin(),end));
     auto it=map_objects.begin();
-    out <<"Display size: "<<window_size<<", scale: "<<map_scale<<", origin:"<<map_origin<<endl;
+    
+    out <<"Display size: "<<window_size<<", scale: "<<map_scale<<", origin:"<<map_origin<<endl; //display map data
 
     int maxY=map_origin.getY()+(map_scale*window_size) - map_scale, maxX=map_origin.getX()+(map_scale*window_size) - map_scale;
     for(int y=maxY,line=0;y>=map_origin.getY();y-=map_scale,line++){
@@ -85,7 +85,7 @@ void View::_show(std::ostream& out)//show the map in the ostream
         }
         out<<endl;
     }
-    for(int i=map_origin.getX(),num=0;i<=maxX;i+=map_scale,num++)
+    for(int i=map_origin.getX(),num=0;i<=maxX;i+=map_scale,num++) // prints the bottom line of cordinates
         if(num%3==0)
             out<<setw(6)<<i;
     out<<endl;

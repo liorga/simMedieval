@@ -10,16 +10,17 @@
 using namespace std;
 
 /**************************************************************** private methods *******************************************************************/
-vector<string> Controller::getDataFromCin(){
+
+vector<string> Controller::getDataFromCin(){ // get string from the user and break it down to a vector of substrings and returns it.
     vector<string> tmp;
     string line;
     string temp1;
-    getline(cin,line);
+    getline(cin,line); // read line from user
     string::iterator b=line.begin();
     string::iterator e=line.end();
     while (b!=e)
     {
-        while (b!=e && *b!=' '){
+        while (b!=e && *b!=' '){ //ignoring commas and spaces
             temp1+=*b;
             b++;
         }
@@ -27,7 +28,7 @@ vector<string> Controller::getDataFromCin(){
             b++;
             continue;
         }
-        tmp.push_back(temp1);
+        tmp.push_back(temp1); // puts the sub strings in vector
         temp1.clear();
 
         if(b==e) return tmp;
@@ -55,7 +56,7 @@ void Controller::go()
 /****************************************************/
 void Controller::show()
 {
-    Model::getInstance().getView()._show(cout<<setprecision(2));
+    Model::getInstance().getView()._show(cout<<setprecision(2)); // showing the map
 }
 /****************************************************/
 void Controller::stop(vector<string>& temp)
@@ -66,7 +67,7 @@ void Controller::stop(vector<string>& temp)
 /****************************************************/
 void Controller::Default()
 {
-    Model::getInstance().getView()._default();
+    Model::getInstance().getView()._default(); // returns the map to its default parameters
 }
 
 void Controller::size(string& s)
@@ -75,8 +76,8 @@ void Controller::size(string& s)
     string::iterator b=s.begin();
     string::iterator e=s.end();
     for(;b!=e && isdigit(*b);temp+=*b,b++);
-    if(b!=e) throw IllegalCommandError();
-    if(stoi(temp)<6 || stoi(temp)>30 ) throw IllegalCommandError(sizeErr);
+    if(b!=e) throw ErrorException("bad size input no number has entered.");
+    if(stoi(temp)<6 || stoi(temp)>30 ) throw ErrorException("map size is illegal.");
     Model::getInstance().getView()._size(stoi(temp));
 }
 
@@ -86,23 +87,23 @@ void Controller::zoom(string& s)
     string::iterator b=s.begin();
     string::iterator e=s.end();
     for(;b!=e && isdigit(*b);temp+=*b,b++);
-    if(b!=e) throw IllegalCommandError();
-    if(stoi(temp)<0) throw IllegalCommandError(negativeErr);
+    if(b!=e) throw ErrorException("bad zoom input no number has entered.");
+    if(stoi(temp)<0) throw ErrorException("map scale must be positive.");
     Model::getInstance().getView()._zoom(stoi(temp));
 }
 /****************************************************/
 void Controller::pan(vector<std::string>& temp)
 {
-    if(temp.size()!=3)  throw IllegalCommandError();;
+    if(temp.size()!=3)  throw ErrorException("illegal number of arguments");;
     string x,y;
     string::iterator b=temp[1].begin();
     string::iterator e=temp[1].end();
     for(;b!=e && (isdigit(*b)||*b =='-');x+=*b,b++);
-    if(b!=e) throw IllegalCommandError();
+    if(b!=e) throw ErrorException("bad pan input no x has entered.");
     b=temp[2].begin();
     e=temp[2].end();
     for(;b!=e && (isdigit(*b)||*b =='-');y+=*b,b++);
-    if(b!=e) throw IllegalCommandError();
+    if(b!=e) throw ErrorException("bad pan input no y has entered.");
     Point tmp(stoi(x),stoi(y));
     Model::getInstance().getView()._pan(tmp);
 }
@@ -114,17 +115,17 @@ void Controller::status()
 /****************************************************/
 void Controller::create(vector<string>& temp)
 {
-    if(Model::getInstance().existInTheMap(temp[1]))throw IllegalCommandError();
+    if(Model::getInstance().existInTheMap(temp[1]))throw ErrorException("Agent is already exists");
     Model::getInstance().addCommand(Model::CREATE,temp);
 }
 /****************************************************/
 void Controller::attack(vector<string>& temp)
 {
     if(temp.size()!=3 ||!Model::getInstance().existInTheMap(temp[2])|| ( (Model::getInstance().existInTheMap(temp[2]) && (typeid(*Model::getInstance().findMapObjectByName(temp[2])).name()!= typeid(Peasant).name()))))
-        throw IllegalCommandError(argsNumError);
+        throw ErrorException("illegal number of arguments");
     if(typeid(*Model::getInstance().findMapObjectByName(temp[0])).name()== typeid(Thug).name())
         Model::getInstance().addCommand(Model::ATTACK,temp);
-    else  throw IllegalCommandError();
+    else  throw ErrorException("Thug is not exist in the world.");
 }
 /****************************************************/
 void Controller::start_working(const vector<string>& temp) {
@@ -143,7 +144,7 @@ void Controller::position(vector<string>& temp)
 /****************************************************/
 void Controller::destination(vector<string>& temp)
 {
-    if((!(Model::getInstance().existInTheMap(temp[2])))) throw IllegalCommandError();
+    if((!(Model::getInstance().existInTheMap(temp[2])))) throw ErrorException("Castle in not exist in the world");
     Model::getInstance().addCommand(Model::DESTINATION,temp);
 }
 /****************************************************/
@@ -151,14 +152,14 @@ void Controller::Init(int argc, char *argv[])
 {
     string temp;
     try{
-        if (argc != 3) throw NumOfArgumentsError();
+        if (argc != 3) throw ErrorException("illegal number of arguments");
         for (int i = 1; i < argc; i++)
         {
             temp=argv[i];
             Model::getInstance().addMapObjects(InputHandler::handle(temp)); //read structures from the file.
         }
     }
-    catch (NumOfArgumentsError& e)
+    catch (ErrorException& e)
     {
         e.PrintError();
         exit(1);
@@ -177,7 +178,7 @@ void Controller::Run() //running the simulation
         try{
             PrintLineInTheBegin();
             line=getDataFromCin();
-            if(line.size()==0) throw IllegalCommandError();
+            if(line.size()==0) throw ErrorException("no arguments has entered");
             if(line.size()==1){
                 if(line[0]=="exit") {
                     cout<<"\nGoodbye"<<endl;
@@ -196,7 +197,7 @@ void Controller::Run() //running the simulation
                     status();
                     continue;
                 }
-                throw  IllegalCommandError();
+                throw  ErrorException("invalid command");
             }
             if(line.size()==2){
                 if(line[0]=="size") {
@@ -208,7 +209,7 @@ void Controller::Run() //running the simulation
                     continue;
                 }
                 
-                throw  IllegalCommandError();
+                throw  ErrorException("invalid command");
             }
             if(line[0]=="pan") {
                 pan(line);
@@ -243,9 +244,9 @@ void Controller::Run() //running the simulation
                 start_working(line);
                 continue;
             }
-            throw  IllegalCommandError();
+            throw  ErrorException("invalid command");
         }
-        catch (IllegalCommandError& e)
+        catch (ErrorException& e)
         {
             e.PrintError();
         }
